@@ -16,16 +16,10 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 import Login from './component/Login';
 import Signup from './component/Signup';
 
@@ -35,12 +29,14 @@ const App = () => {
   }, [])
 
   return (
-    <SafeAreaView>
-      <StatusBar barStyle={'light-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic">
-          <Signup></Signup>
-      </ScrollView>
+    <SafeAreaView style={{flex: 1}}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login"
+        screenOptions={{headerShown:false}}>
+          <Stack.Screen name='Login' component={Login}/>
+          <Stack.Screen name='Signup' component={Signup}/>
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
 };

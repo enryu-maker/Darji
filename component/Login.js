@@ -67,6 +67,11 @@ export default class Login extends Component {
                     <TouchableOpacity style={styles.Button}>
                         <Text style={styles.Text}>Login</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                    style={{alignSelf:'center',marginTop:'5%'}}
+                    onPress={()=>this.props.navigation.navigate("Signup")}>
+                        <Text style={[styles.Tick,{textDecorationLine:'underline'}]}>New member? Signup</Text>
+                    </TouchableOpacity>
                 </View>
                     
                 </View>

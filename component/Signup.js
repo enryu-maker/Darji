@@ -21,6 +21,7 @@ export default class Signup extends Component {
       }
       checkPass=()=>{
         if (this.state.password1===this.state.password2){
+            
         }
         else{
             this.setState({
@@ -94,6 +95,7 @@ export default class Signup extends Component {
                         <Text style={styles.Text}>Signup</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{alignSelf:'center',marginTop:'5%'}}
+                    onPress={()=>{this.props.navigation.navigate('Login')}}
                     >
                         <Text style={{textDecorationLine:'underline'}}>
                             Already a member? Login
