@@ -1,20 +1,38 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native'
-import CheckBox from 'react-native-check-box'
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
+import CheckBox from 'react-native-check-box';
 import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+
 
 export default class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = ({
           email: '',
-          password: '',
+          password1: '',
+          password2: '',
           switchValue: false,
-          showView:true
+          showView:true,
+          valueColor:'black',
+          passText:'Password',
+          mailText:'email'
         })
     
       }
-    render() {
+      checkPass=()=>{
+        if (this.state.password1===this.state.password2){
+        }
+        else{
+            this.setState({
+                password1:'',
+                password2:'',
+                valueColor:'red',
+                passText:"Password didn't match"
+            })
+        }
+    }
+    
+        render() {
         
         return (
             <KeyboardAvoidingView behavior='position'>
@@ -39,20 +57,25 @@ export default class Signup extends Component {
                 <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
                 <TextInput
                     style={styles.Entry}
-                    placeholder='email'
-                    placeholderTextColor={'black'}
-                    showSoftInputOnFocus={true}/>
-                    <TextInput
-                    style={styles.Entry}
-                    placeholder='Password'
-                    placeholderTextColor={'black'}
-                    secureTextEntry={this.state.showView}
+                    placeholder={this.state.mailText}
+                    placeholderTextColor={this.state.valueColor}
+                    onChangeText={(email)=>{this.setState({email})}}
                     />
                     <TextInput
                     style={styles.Entry}
-                    placeholder='Password'
-                    placeholderTextColor={'black'}
+                    placeholder={this.state.passText}
+                    placeholderTextColor={this.state.valueColor}
                     secureTextEntry={this.state.showView}
+                    onChangeText={(password1)=>{this.setState({password1})}}
+                    value={this.state.password1}
+                    />
+                    <TextInput
+                    style={styles.Entry}
+                    placeholder={this.state.passText}
+                    placeholderTextColor={this.state.valueColor}
+                    secureTextEntry={this.state.showView}
+                    onChangeText={(password2)=>{this.setState({password2})}}
+                    value={this.state.password2}
                     />
                     <CheckBox
                         style={[styles.Tick]}
@@ -66,7 +89,8 @@ export default class Signup extends Component {
                         rightText={"Show password"}
                     />
 
-                    <TouchableOpacity style={styles.Button}>
+                    <TouchableOpacity style={styles.Button}
+                    onPress={this.checkPass}>
                         <Text style={styles.Text}>Signup</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{alignSelf:'center',marginTop:'5%'}}
@@ -104,9 +128,8 @@ const styles = StyleSheet.create({
         width:'80%',
         alignSelf:'center',
         margin:10,
-        color:'black',
         fontSize:18,
-        fontFamily:'serif'
+        fontFamily:'serif',
     },
     Button:{
         borderBottomColor:'black',
