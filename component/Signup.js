@@ -15,6 +15,7 @@ export default class Signup extends Component {
           showView:true,
           valueColor:'black',
           passText:'Password',
+          passText2:'Re-Password',
           mailText:'email'
         })
     
@@ -28,7 +29,8 @@ export default class Signup extends Component {
                 password1:'',
                 password2:'',
                 valueColor:'red',
-                passText:"Password didn't match"
+                passText:"Password didn't match",
+                passText2:"Password didn't match"
             })
         }
     }
@@ -72,7 +74,7 @@ export default class Signup extends Component {
                     />
                     <TextInput
                     style={styles.Entry}
-                    placeholder={this.state.passText}
+                    placeholder={this.state.passText2}
                     placeholderTextColor={this.state.valueColor}
                     secureTextEntry={this.state.showView}
                     onChangeText={(password2)=>{this.setState({password2})}}
