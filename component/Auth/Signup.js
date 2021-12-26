@@ -8,29 +8,28 @@ export default class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = ({
+          username:'username',
           email: '',
           password1: '',
-          password2: '',
           switchValue: false,
           showView:true,
           valueColor:'black',
           passText:'Password',
-          passText2:'Re-Password',
           mailText:'email'
         })
     
       }
       checkPass=()=>{
-        if (this.state.password1===this.state.password2){
+        if (this.state.password1){
             
         }
         else{
             this.setState({
+                email:'',
                 password1:'',
                 password2:'',
                 valueColor:'red',
                 passText:"Password didn't match",
-                passText2:"Password didn't match"
             })
         }
     }
@@ -42,7 +41,7 @@ export default class Signup extends Component {
                 <View style={styles.Main}>
                 <View style={styles.Headercontainer}>
                     <Text style={[styles.Headtext]}>
-                        DARJI
+                        D A R J I
                     </Text>
                 </View>
                 <View style={styles.Entrycontainer}>
@@ -60,9 +59,16 @@ export default class Signup extends Component {
                 <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
                 <TextInput
                     style={styles.Entry}
+                    placeholder={this.state.username}
+                    placeholderTextColor={this.state.valueColor}
+                    onChangeText={(username)=>{this.setState({username})}}
+                    />
+                    <TextInput
+                    style={styles.Entry}
                     placeholder={this.state.mailText}
                     placeholderTextColor={this.state.valueColor}
                     onChangeText={(email)=>{this.setState({email})}}
+                    value={this.state.email}
                     />
                     <TextInput
                     style={styles.Entry}
@@ -71,14 +77,6 @@ export default class Signup extends Component {
                     secureTextEntry={this.state.showView}
                     onChangeText={(password1)=>{this.setState({password1})}}
                     value={this.state.password1}
-                    />
-                    <TextInput
-                    style={styles.Entry}
-                    placeholder={this.state.passText2}
-                    placeholderTextColor={this.state.valueColor}
-                    secureTextEntry={this.state.showView}
-                    onChangeText={(password2)=>{this.setState({password2})}}
-                    value={this.state.password2}
                     />
                     <CheckBox
                         style={[styles.Tick]}
@@ -129,8 +127,6 @@ const styles = StyleSheet.create({
         height:'100%'
     },
     Entry:{
-        
-        //borderBottomColor:'black',
         borderBottomWidth:1,
         width:'80%',
         alignSelf:'center',
@@ -166,7 +162,7 @@ const styles = StyleSheet.create({
     Headtext:{
         fontSize:43,
         fontWeight:'bold',
-        letterSpacing:5,
+        letterSpacing:10,
         alignSelf:'center',
         fontFamily:'serif',
         color:'white'

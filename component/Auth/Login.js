@@ -6,6 +6,8 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = ({
+          ValueColor:'black',
+          Value:'',
           email: '',
           password: '',
           switchValue: false,
@@ -17,13 +19,24 @@ export default class Login extends Component {
         })
     
       }
+    validateUser=async(email,password)=>{
+        if (email && password){
+            await this.props.navigation.navigate('Home')
+        }
+        else{
+            this.setState({
+                ValueColor:'red',
+                Value:'Please Enter the valid email and password'
+            })
+        }
+    }
     render() {
         
         return (
             <View style={styles.Main}>
                 <View style={styles.Headercontainer}>
                     <Text style={[styles.Headtext]}>
-                        DARJI
+                        D A R J I
                     </Text>
                 </View>
                 
@@ -40,15 +53,20 @@ export default class Login extends Component {
                     source={require('../../assets/right.png')}/>
                     </View>
                 <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
+                    <Text style={{alignSelf:'center',color:this.state.ValueColor}}>{this.state.Value}</Text>
                 <TextInput
                     style={styles.Entry}
                     placeholder='email'
-                    placeholderTextColor={this.state.valueColor}/>
+                    placeholderTextColor={this.state.valueColor}
+                    onChangeText={(email)=>{this.setState({email})}}
+                    value={this.state.email}/>
                     <TextInput
                     style={styles.Entry}
                     placeholder='Password'
                     placeholderTextColor={this.state.valueColor}
                     secureTextEntry={this.state.showView}
+                    onChangeText={(password)=>{this.setState({password})}}
+                    value={this.state.password}
                     />
                     <View style={{flexDirection:'row',width:'80%',alignSelf:'center'}}>
                     <CheckBox
@@ -70,7 +88,7 @@ export default class Login extends Component {
                     
                     </View>
                     <TouchableOpacity style={styles.Button}
-                    onPress={()=>this.props.navigation.navigate("Home")}>
+                    onPress={()=>this.validateUser(this.state.email,this.state.password)}>
                         <Text style={styles.Text}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
