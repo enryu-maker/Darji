@@ -1,85 +1,56 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
-import CheckBox from 'react-native-check-box';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image, KeyboardAvoidingView } from 'react-native'
+import CheckBox from 'react-native-check-box'
 
-
-export default class Signup extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = ({
           email: '',
-          password1: '',
-          password2: '',
+          password: '',
           switchValue: false,
           showView:true,
-          valueColor:'black',
+          valueColor:'rgb(37,36,39)',
           passText:'Password',
           passText2:'Re-Password',
           mailText:'email'
         })
     
       }
-      checkPass=()=>{
-        if (this.state.password1===this.state.password2){
-            
-        }
-        else{
-            this.setState({
-                password1:'',
-                password2:'',
-                valueColor:'red',
-                passText:"Password didn't match",
-                passText2:"Password didn't match"
-            })
-        }
-    }
-    
-        render() {
+    render() {
         
         return (
-            <KeyboardAvoidingView behavior='position'>
-                <View style={styles.Main}>
+            <View style={styles.Main}>
                 <View style={styles.Headercontainer}>
                     <Text style={[styles.Headtext]}>
                         DARJI
                     </Text>
                 </View>
+                
                 <View style={styles.Entrycontainer}>
                     <View style={{flexDirection:'row',justifyContent:'center',marginTop:'20%',}}>
                         <Image 
                         style={styles.Img}
-                        source={require('../assets/left.png')}/>
-                        <Text style={[styles.Headtext,{fontSize:38,letterSpacing:3}]}>
-                        SIGNUP
+                        source={require('../../assets/left.png')}/>
+                        <Text style={[styles.Headtext,{fontSize:38,letterSpacing:3,color:'rgb(37,36,39)'}]}>
+                        LOGIN
                     </Text>
                     <Image
                     style={styles.Img}
-                    source={require('../assets/right.png')}/>
+                    source={require('../../assets/right.png')}/>
                     </View>
                 <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
                 <TextInput
                     style={styles.Entry}
-                    placeholder={this.state.mailText}
-                    placeholderTextColor={this.state.valueColor}
-                    onChangeText={(email)=>{this.setState({email})}}
-                    />
+                    placeholder='email'
+                    placeholderTextColor={this.state.valueColor}/>
                     <TextInput
                     style={styles.Entry}
-                    placeholder={this.state.passText}
+                    placeholder='Password'
                     placeholderTextColor={this.state.valueColor}
                     secureTextEntry={this.state.showView}
-                    onChangeText={(password1)=>{this.setState({password1})}}
-                    value={this.state.password1}
                     />
-                    <TextInput
-                    style={styles.Entry}
-                    placeholder={this.state.passText2}
-                    placeholderTextColor={this.state.valueColor}
-                    secureTextEntry={this.state.showView}
-                    onChangeText={(password2)=>{this.setState({password2})}}
-                    value={this.state.password2}
-                    />
+                    <View style={{flexDirection:'row',width:'80%',alignSelf:'center'}}>
                     <CheckBox
                         style={[styles.Tick]}
                         onClick={()=>{
@@ -91,32 +62,34 @@ export default class Signup extends Component {
                         isChecked={this.state.switchValue}
                         rightText={"Show password"}
                     />
-
-                    <TouchableOpacity style={styles.Button}
-                    onPress={this.checkPass}>
-                        <Text style={styles.Text}>Signup</Text>
+                    <TouchableOpacity>
+                    <Text style={[styles.Tick,{textDecorationLine:'underline',color:'rgb(37,36,39)'}]}>
+                        Forget Password?
+                    </Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{alignSelf:'center',marginTop:'5%'}}
-                    onPress={()=>{this.props.navigation.navigate('Login')}}
-                    >
-                        <Text style={{textDecorationLine:'underline'}}>
-                            Already a member? Login
-                        </Text>
-                    </TouchableOpacity>
-                </View>
                     
+                    </View>
+                    <TouchableOpacity style={styles.Button}
+                    onPress={()=>this.props.navigation.navigate("Home")}>
+                        <Text style={styles.Text}>Login</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                    style={{alignSelf:'center',marginTop:'5%'}}
+                    onPress={()=>this.props.navigation.navigate("Signup")}>
+                        <Text style={[styles.Tick,{textDecorationLine:'underline',color:'rgb(37,36,39)'}]}>New member? Signup</Text>
+                    </TouchableOpacity>
                 </View>
+                </View>                
             </View>
-            </KeyboardAvoidingView>
-            
         )
     }
 }
 
 const styles = StyleSheet.create({
     Main:{
-        flexDirection:'column',
-        justifyContent:'space-evenly'
+        flex:1,
+        backgroundColor:'rgb(37,36,39)'
+        
     },
     Img:{
         height:40,
@@ -124,6 +97,10 @@ const styles = StyleSheet.create({
     },
     Entrycontainer:{
         flexDirection:'column',
+        borderTopStartRadius:20,
+        borderTopEndRadius:20,
+        backgroundColor:'white',
+        height:'100%'
     },
     Entry:{
         
@@ -132,6 +109,7 @@ const styles = StyleSheet.create({
         width:'80%',
         alignSelf:'center',
         margin:10,
+        color:'black',
         fontSize:18,
         fontFamily:'serif',
     },
@@ -145,28 +123,34 @@ const styles = StyleSheet.create({
         height:40,
         marginTop:20,
         alignItems:'center',
-        alignContent:'center'
+        alignContent:'center',
+        backgroundColor:'rgb(37,36,39)'
     },
     Text:{
         fontSize:22,
         fontFamily:'serif',
         fontWeight:'bold',
+        color:'white'
 
     },
     Headercontainer:{
-        marginTop:'10%'
+        //backgroundColor:'black',
+        height:'25%',
+        justifyContent:'center'
     },
     Headtext:{
         fontSize:43,
         fontWeight:'bold',
-        letterSpacing:5,
+        letterSpacing:10,
         alignSelf:'center',
-        fontFamily:'serif'
+        fontFamily:'serif',
+        color:'white'
     },
     Tick:{
-        width:'80%',
+        width:150,
         alignSelf:'center',
         margin:10,
+        //color:'rgb(131,154,221)'
     }
 
     

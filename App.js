@@ -20,8 +20,9 @@ import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
-import Login from './component/Login';
-import Signup from './component/Signup';
+import Login from './component/Auth/Login';
+import Signup from './component/Auth/Signup';
+import Home from './component/Home/Home';
 
 const App = () => {
   useEffect(() => {
@@ -35,6 +36,7 @@ const App = () => {
         screenOptions={{headerShown:false}}>
           <Stack.Screen name='Login' component={Login}/>
           <Stack.Screen name='Signup' component={Signup}/>
+          <Stack.Screen name='Home' component={Home}/>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
