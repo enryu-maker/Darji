@@ -18,7 +18,7 @@ export default class Home extends Component {
                             
                     </View>
                     <Text style={[styles.Headtext,{color:'rgb(237, 234, 224)',margin:15}]}>
-                        Hey, user!
+                        Name of Shop
                     </Text>
                 </View>
                 

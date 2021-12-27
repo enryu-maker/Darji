@@ -24,18 +24,23 @@ const Stack = createNativeStackNavigator();
 import Login from './component/Auth/Login';
 import Signup from './component/Auth/Signup';
 import Home from './component/Home/Home';
-import About from './component/Home/About'
-import Contact from './component/Home/Contact'
+import Addclient from './component/Home/Addclient'
+import Search from './component/Home/Search'
+import Profile from './component/Home/Profile';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 const Drawer = createDrawerNavigator();
 const drawerNav=()=>{
   return (
       <Drawer.Navigator initialRouteName='Home'
-      screenOptions={{headerShown:false,drawerActiveBackgroundColor:'rgb(37,36,39)',drawerActiveTintColor:'rgb(252, 251, 252)',drawerStyle:{backgroundColor:'rgb(252, 251, 252)'}}}
+      screenOptions={{headerShown:false,drawerActiveBackgroundColor:'rgb(37,36,39)',
+      drawerActiveTintColor:'rgb(252, 251, 252)',
+      drawerStyle:{backgroundColor:'rgb(252, 251, 252)'},
+    drawerLabelStyle:{fontFamily:'serif',fontSize:18}}}
       >
     <Drawer.Screen name='Home' component={Home}/>
-      <Drawer.Screen name='About' component={About}/>
-      <Drawer.Screen name='Contact' component={Contact}/>
+    <Drawer.Screen name='Profile' component={Profile}/>
+      <Drawer.Screen name='AddClient' component={Addclient}/>
+      <Drawer.Screen name='Search' component={Search}/>
     </Drawer.Navigator>
   )
 }
