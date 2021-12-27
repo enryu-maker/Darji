@@ -20,7 +20,7 @@ export default class Signup extends Component {
     
       }
       checkPass=()=>{
-        if (this.state.password1){
+        if (this.state.password1&& this.state.email&&this.state.username){
             
         }
         else{
@@ -29,7 +29,7 @@ export default class Signup extends Component {
                 password1:'',
                 password2:'',
                 valueColor:'red',
-                passText:"Password didn't match",
+                passText:"Password",
             })
         }
     }
@@ -79,7 +79,7 @@ export default class Signup extends Component {
                     value={this.state.password1}
                     />
                     <CheckBox
-                        style={[styles.Tick]}
+                        style={[styles.Tick,]}
                         onClick={()=>{
                         this.setState({
                             switchValue:!this.state.switchValue,
@@ -97,7 +97,7 @@ export default class Signup extends Component {
                     <TouchableOpacity style={{alignSelf:'center',marginTop:'5%'}}
                     onPress={()=>{this.props.navigation.navigate('Login')}}
                     >
-                        <Text style={{textDecorationLine:'underline',color:'rgb(37,36,39)'}}>
+                        <Text style={{textDecorationLine:'underline',color:'rgb(37,36,39)',fontSize:16}}>
                             Already a member? Login
                         </Text>
                     </TouchableOpacity>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TouchableOpacity, Image } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity, Image, ScrollView } from 'react-native'
 
 
 export default class Profile extends Component {
@@ -22,7 +22,7 @@ export default class Profile extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.HorizontalLine}/>
+                
                 <View style={styles.profile}>
                     <Image source={require('../../assets/usersample.png')}
                     style={styles.UserProfile}/>
@@ -32,7 +32,10 @@ export default class Profile extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.HorizontalLine}/>
+                <ScrollView style={styles.container}>
+
+                </ScrollView>
+                
             </View>
         )
     }
@@ -59,12 +62,18 @@ const styles = StyleSheet.create({
         height:100,
         borderRadius:100/2,
         alignSelf:'center',
-        marginTop:25
+        marginTop:20
     },
     HorizontalLine:{
         borderStyle: 'solid',
         width:'100%',
         borderWidth:0.185,
         borderColor:'grey'
+    },
+    container:{
+        backgroundColor:'rgb(252, 251, 252)',
+        height:'100%',
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20
     }
 })

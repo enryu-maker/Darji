@@ -40,7 +40,7 @@ const drawerNav=()=>{
     <Drawer.Screen name='Home' component={Home}/>
     <Drawer.Screen name='Profile' component={Profile}/>
       <Drawer.Screen name='AddClient' component={Addclient}/>
-      <Drawer.Screen name='Search' component={Search}/>
+      <Drawer.Screen name='SearchClient' component={Search}/>
     </Drawer.Navigator>
   )
 }
