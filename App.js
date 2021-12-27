@@ -31,7 +31,8 @@ const Drawer = createDrawerNavigator();
 const drawerNav=()=>{
   return (
       <Drawer.Navigator initialRouteName='Home'
-      screenOptions={{headerShown:false}}>
+      screenOptions={{headerShown:false,drawerActiveBackgroundColor:'rgb(37,36,39)',drawerActiveTintColor:'rgb(252, 251, 252)',drawerStyle:{backgroundColor:'rgb(252, 251, 252)'}}}
+      >
     <Drawer.Screen name='Home' component={Home}/>
       <Drawer.Screen name='About' component={About}/>
       <Drawer.Screen name='Contact' component={Contact}/>

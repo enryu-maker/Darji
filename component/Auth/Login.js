@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         flexDirection:'column',
         borderTopStartRadius:20,
         borderTopEndRadius:20,
-        backgroundColor:'white',
+        backgroundColor:'rgb(252, 251, 252)',
         height:'100%'
     },
     Entry:{
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
         fontSize:22,
         fontFamily:'serif',
         fontWeight:'bold',
-        color:'white'
+        color:'rgb(252, 251, 252)'
 
     },
     Headercontainer:{
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
         letterSpacing:10,
         alignSelf:'center',
         fontFamily:'serif',
-        color:'white'
+        color:'rgb(252, 251, 252)'
     },
     Tick:{
         width:150,
