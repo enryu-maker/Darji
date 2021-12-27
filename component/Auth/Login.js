@@ -21,7 +21,7 @@ export default class Login extends Component {
       }
     validateUser=async(email,password)=>{
         if (email && password){
-            await this.props.navigation.navigate('Home')
+            await this.props.navigation.navigate('Draw')
         }
         else{
             this.setState({

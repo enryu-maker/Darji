@@ -24,7 +24,20 @@ const Stack = createNativeStackNavigator();
 import Login from './component/Auth/Login';
 import Signup from './component/Auth/Signup';
 import Home from './component/Home/Home';
-
+import About from './component/Home/About'
+import Contact from './component/Home/Contact'
+import { createDrawerNavigator } from '@react-navigation/drawer';
+const Drawer = createDrawerNavigator();
+const drawerNav=()=>{
+  return (
+      <Drawer.Navigator initialRouteName='Home'
+      screenOptions={{headerShown:false}}>
+    <Drawer.Screen name='Home' component={Home}/>
+      <Drawer.Screen name='About' component={About}/>
+      <Drawer.Screen name='Contact' component={Contact}/>
+    </Drawer.Navigator>
+  )
+}
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
@@ -37,7 +50,7 @@ const App = () => {
         screenOptions={{headerShown:false}}>
           <Stack.Screen name='Login' component={Login}/>
           <Stack.Screen name='Signup' component={Signup}/>
-          <Stack.Screen name='Home' component={Home}/>
+          <Stack.Screen name='Draw' component={drawerNav}/>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, Image } from 'react-native'
+import { Text, StyleSheet, View, Image,TouchableOpacity } from 'react-native'
+
 //import { createDrawerNavigator } from '@react-navigation/drawer';
 //const Drawer = createDrawerNavigator();
 export default class Home extends Component {
@@ -8,9 +9,11 @@ export default class Home extends Component {
             <View style={styles.Main}>
                 <View style={styles.SubContainer}>
                     <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-                        <Text style={[styles.Headtext,{alignSelf:'center',margin:10}]}>
-                            D
-                        </Text>
+                        <TouchableOpacity 
+                        onPress={()=>this.props.navigation.openDrawer()}
+                         >
+                           <Text style={[styles.Headtext,{alignSelf:'center',margin:10}]}>D</Text> 
+                        </TouchableOpacity>
                         <Image style={{alignSelf:'center',width:70,height:70,margin:10,borderRadius:70/2}}
                         source={require('../../assets/usersample.png')}/>
                             
