@@ -1,19 +1,46 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native'
-
+import { launchImageLibrary,ImageLibraryOptions } from 'react-native-image-picker';
 
 export default class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            Name:'',
-            Phone:'',
-            ShopName:'',
-            ShopAddr:'',
-            Email:'',
-            Website:'',
+            ProfilePic:'../../assets/usersample.png',
+            Name:'Akif Khan',
+            Phone:'+91 9405649047',
+            ShopName:'NerdTech',
+            ShopAddr:'Nashik',
+            Email:'akifkhan60067@gmail.com',
+            Website:'nerdtech.in',
         })
     }
+    openCamara = () => {
+        const options = {
+        storageOptions: {
+        path: 'images',
+        mediaType: 'photo',
+        },
+        includeBase64: true,
+        };
+        
+        launchImageLibrary(options, response => {
+        console.log('Response = ', response);
+        if (response.didCancel) {
+        console.log('User cancelled image picker');
+        } else if (response.error) {
+        console.log('ImagePicker Error:' , response.error);
+        } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        } else {
+        // You can also display the image using data:
+        const source = {uri: 'data:image/jpeg;base64,' + response.base64};
+        this.setState({
+            ProfilePic:source
+        });
+        }
+        });
+        };
     render() {
         return (
             <View style={styles.Maincontainer}>
@@ -37,7 +64,8 @@ export default class Profile extends Component {
                 <View style={styles.profile}>
                     <Image source={require('../../assets/usersample.png')}
                     style={styles.UserProfile}/>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={()=>this.openCamara()}>
                         <Text style={[styles.Headtext,{fontSize:16,alignSelf:'center',padding:10}]}>
                             change profile pic
                         </Text>
@@ -50,7 +78,7 @@ export default class Profile extends Component {
                     </Text>
                     <TextInput
                     style={styles.Input}
-                    placeholder='Name'
+                    placeholder={this.state.Name}
                     placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Name)=>{this.setState({Name})}}/>
                     </View>
@@ -60,7 +88,8 @@ export default class Profile extends Component {
                     </Text>
                     <TextInput
                     style={styles.Input}
-                    placeholder='Phone'
+                    placeholder={this.state.Phone}
+                    placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Phone)=>{this.setState({Phone})}}
                     />
                     </View>
@@ -70,7 +99,8 @@ export default class Profile extends Component {
                     </Text>
                     <TextInput
                     style={styles.Input}
-                    placeholder='Shop Name'
+                    placeholder={this.state.ShopName}
+                    placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(ShopName)=>{this.setState({ShopName})}}
                     />
                     </View>
@@ -80,7 +110,8 @@ export default class Profile extends Component {
                     </Text>
                     <TextInput
                     style={[styles.Input,{}]}
-                    placeholder='Shop Address'
+                    placeholder={this.state.ShopAddr}
+                    placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(ShopAddr)=>{this.setState({ShopAddr})}}
                     />
                     </View>
@@ -90,7 +121,8 @@ export default class Profile extends Component {
                     </Text>
                     <TextInput
                     style={styles.Input}
-                    placeholder='Email'
+                    placeholder={this.state.Email}
+                    placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Email)=>{this.setState({Email})}}
                     />
                     </View>
@@ -100,7 +132,8 @@ export default class Profile extends Component {
                     </Text>
                     <TextInput
                     style={styles.Input}
-                    placeholder='Website'
+                    placeholder={this.state.Website}
+                    placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Website)=>{this.setState({Website})}}
                     />
                     </View>
@@ -108,11 +141,12 @@ export default class Profile extends Component {
                     <Text style={styles.FormatText}>
                         Logo 
                     </Text>
-                    <TextInput
-                    style={styles.Input}
-                    placeholder='Logo'
-                    onChangeText={(Name)=>{this.setState({Name})}}
-                    />
+                    <Image source={require('../../assets/usersample.png')}
+                    style={[styles.UserProfile,{width:70,height:70,marginTop:0}]}/>
+                    <TouchableOpacity style={styles.Button}
+                    onPress={()=>this.openCamara()}>
+                        <Text style={styles.Text}>Add Logo</Text>
+                    </TouchableOpacity>
                     </View>
                 </ScrollView>
                 
@@ -165,13 +199,35 @@ const styles = StyleSheet.create({
     FormatText:{
         padding:15,
         fontSize:18,
-        justifyContent:'center'
+        justifyContent:'center',
+        fontFamily:'serif'
     },
     Input:{
         borderBottomWidth:1,
         width:'65%',
         margin:5,
         borderColor:'rgb(37,36,39)',
-    }
+        fontSize:16,
+        fontFamily:'serif'
+    },
+    Button:{
+        borderBottomColor:'black',
+        borderWidth:1,
+        width:'40%',
+        alignSelf:'center',
+        justifyContent:'center',
+        borderRadius:8,
+        height:40,
+        //marginTop:20,
+        alignItems:'center',
+        alignContent:'center',
+        backgroundColor:'rgb(37,36,39)'
+    },
+    Text:{
+        fontSize:22,
+        fontFamily:'serif',
+        fontWeight:'bold',
+        color:'rgb(252, 251, 252)'
+    },
 
 })
