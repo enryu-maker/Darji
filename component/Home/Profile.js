@@ -76,10 +76,10 @@ export default class Profile extends Component {
                     </View>
                     <View style={[styles.Format]}>
                     <Text style={styles.FormatText}>
-                    Shop{'\n'}Address 
+                    Shop{'\n'}Address  
                     </Text>
                     <TextInput
-                    style={[styles.Input,{marginRight:13}]}
+                    style={[styles.Input,{}]}
                     placeholder='Shop Address'
                     onChangeText={(ShopAddr)=>{this.setState({ShopAddr})}}
                     />
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     },
     Format:{
         flexDirection:'row',
-        justifyContent:'space-around',
+        justifyContent:'space-between',
         padding:7,
         
     },
