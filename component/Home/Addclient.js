@@ -68,9 +68,17 @@ export default class Addclient extends Component {
                         placeholderTextColor={'rgb(37,36,39)'}
                         style={styles.Input}/>
                     </View>
-                    <Text style={[styles.buttonText,{fontSize:26}]}>
-                        Measurement
+                    <View style={{flexDirection:'row',justifyContent:'center',padding:10}}>
+                        <Image 
+                        style={styles.Img}
+                        source={require('../../assets/left.png')}/>
+                        <Text style={[styles.buttonText,{fontSize:22,color:'rgb(37,36,39)',letterSpacing:0}]}>
+                        Measurements
                     </Text>
+                    <Image
+                    style={styles.Img}
+                    source={require('../../assets/right.png')}/>
+                    </View>
                     <View style={styles.Entry}>
                         <Text style={styles.EntryText}>
                             Select Dress type
@@ -176,5 +184,9 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'rgb(252, 251, 252)'
 
+    },
+    Img:{
+        height:40,
+        width:100
     },
 })
