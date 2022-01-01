@@ -5,7 +5,7 @@ export default class Pant extends Component {
     render() {
         return (
             <View>
-                <Text> textInComponent </Text>
+                <Text> pant component </Text>
             </View>
         )
     }

@@ -27,6 +27,8 @@ import Home from './component/Home/Home';
 import Addclient from './component/Home/Addclient'
 import Search from './component/Home/Search'
 import Profile from './component/Home/Profile';
+import Shirt from './component/Measure/Shirt';
+import Pant from './component/Measure/Pant';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 const Drawer = createDrawerNavigator();
 const drawerNav=()=>{
@@ -57,6 +59,8 @@ const App = () => {
           <Stack.Screen name='Login' component={Login}/>
           <Stack.Screen name='Signup' component={Signup}/>
           <Stack.Screen name='Draw' component={drawerNav}/>
+          <Stack.Screen name='Shirt' component={Shirt}/>
+          <Stack.Screen name='Pant' component={Pant}/>
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

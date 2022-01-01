@@ -95,7 +95,7 @@ export default class Profile extends Component {
                     </View>
                     <View style={styles.Format}>
                     <Text style={styles.FormatText}>
-                        Shop{'\n'}Name
+                        Shop
                     </Text>
                     <TextInput
                     style={styles.Input}
@@ -106,7 +106,7 @@ export default class Profile extends Component {
                     </View>
                     <View style={[styles.Format]}>
                     <Text style={styles.FormatText}>
-                    Shop{'\n'}Address  
+                    Address  
                     </Text>
                     <TextInput
                     style={[styles.Input,{}]}

@@ -1,34 +1,54 @@
+import axios from 'axios'
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image, KeyboardAvoidingView } from 'react-native'
 import CheckBox from 'react-native-check-box'
-
+axios.defaults.baseURL='https://darzi.nerdtech.in/api'
 export default class Login extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-          ValueColor:'black',
           Value:'',
           email: '',
           password: '',
           switchValue: false,
           showView:true,
-          valueColor:'rgb(37,36,39)',
+          ValueColor:'rgb(37,36,39)',
           passText:'Password',
-          passText2:'Re-Password',
-          mailText:'email'
+          mailText:'email',
         })
     
       }
-    validateUser=async(email,password)=>{
-        if (email && password){
-            await this.props.navigation.replace('Draw')
-        }
-        else{
-            this.setState({
-                ValueColor:'red',
-                Value:'Please Enter the valid email and password'
+    login=()=>{
+        if (this.state.email && this.state.password){
+            axios.post('/login/',
+            {"username":this.state.email,"password":this.state.password},
+            {headers: {
+                'Content-Type': 'application/json',
+            }}).then((response)=>{
+                if(response.status===200){
+                    this.props.navigation.replace('Draw')
+                }
+                else{
+                    this.setState({
+                        ValueColor:'red',
+                        Value:'Something went wrong'
+                    })
+                }
             })
-        }
+            .catch((error)=> {
+                if (error.response) {
+                  console.log(error.response.data);
+                  this.setState({
+                    ValueColor:'red',
+                    Value:`${error.response.data.detail}`
+                })
+                }})
+            }
+            else{
+                this.setState({
+                    ValueColor:'#800000',
+                    Value:'Please Enter the valid email and password'
+                        })}
     }
     render() {
         
@@ -57,13 +77,13 @@ export default class Login extends Component {
                 <TextInput
                     style={styles.Entry}
                     placeholder='email'
-                    placeholderTextColor={this.state.valueColor}
+                    placeholderTextColor={this.state.ValueColor}
                     onChangeText={(email)=>{this.setState({email})}}
                     value={this.state.email}/>
                     <TextInput
                     style={styles.Entry}
                     placeholder='Password'
-                    placeholderTextColor={this.state.valueColor}
+                    placeholderTextColor={this.state.ValueColor}
                     secureTextEntry={this.state.showView}
                     onChangeText={(password)=>{this.setState({password})}}
                     value={this.state.password}
@@ -88,7 +108,7 @@ export default class Login extends Component {
                     
                     </View>
                     <TouchableOpacity style={styles.Button}
-                    onPress={()=>this.validateUser(this.state.email,this.state.password)}>
+                    onPress={()=>this.login()}>
                         <Text style={styles.Text}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -107,7 +127,6 @@ const styles = StyleSheet.create({
     Main:{
         flex:1,
         backgroundColor:'rgb(37,36,39)'
-        
     },
     Img:{
         height:40,
@@ -152,7 +171,6 @@ const styles = StyleSheet.create({
 
     },
     Headercontainer:{
-        //backgroundColor:'black',
         height:'25%',
         justifyContent:'center'
     },
@@ -168,7 +186,6 @@ const styles = StyleSheet.create({
         width:150,
         alignSelf:'center',
         margin:10,
-        //color:'rgb(131,154,221)'
     }
 
     

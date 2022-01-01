@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
 import CheckBox from 'react-native-check-box';
-import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
+//import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 
 export default class Signup extends Component {
@@ -57,12 +57,6 @@ export default class Signup extends Component {
                     source={require('../../assets/right.png')}/>
                     </View>
                 <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
-                <TextInput
-                    style={styles.Entry}
-                    placeholder={this.state.username}
-                    placeholderTextColor={this.state.valueColor}
-                    onChangeText={(username)=>{this.setState({username})}}
-                    />
                     <TextInput
                     style={styles.Entry}
                     placeholder={this.state.mailText}

@@ -9,7 +9,6 @@ export default class Addclient extends Component {
             DressType:'Shirt'
         })
     }
-    
     openCamara = () => {
         const options = {
         storageOptions: {
@@ -36,7 +35,6 @@ export default class Addclient extends Component {
         });
         };
     render() {
-        
         return (
             <View style={styles.Main}>
                 <View style={styles.Header}>
@@ -84,16 +82,17 @@ export default class Addclient extends Component {
                             Select Dress type
                         </Text>
                         <Picker
-                            selectedValue={this.state.language}
+                            selectedValue={this.state.DressType}
                             style={{height: 40, width: '50%'}}
                             onValueChange={(itemValue, itemIndex) =>
-                                this.setState({language: itemValue})
+                                this.setState({DressType: itemValue})
                             }>
                             <Picker.Item label="Shirt" fontFamily='serif'  value="Shirt" style={styles.pick}/>
                             <Picker.Item label="Pant" fontFamily='serif' value="Pant" style={styles.pick}/>
                         </Picker>
                     </View> 
-                    <TouchableOpacity style={styles.Button}>
+                    <TouchableOpacity style={styles.Button}
+                    onPress={()=>this.props.navigation.navigate(this.state.DressType)}>
                         <Text style={styles.Text}>
                             Add Detail
                         </Text>
@@ -104,7 +103,6 @@ export default class Addclient extends Component {
         )
     }
 }
-
 const styles = StyleSheet.create({
     Main:{
         backgroundColor:'rgb(37,36,39)',
