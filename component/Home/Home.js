@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image,TouchableOpacity } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 export default class Home extends Component {
     render() {
+        
         return (
             <View style={styles.Main}>
                 <View style={styles.SubContainer}>

@@ -1,79 +1,135 @@
+import axios from 'axios'
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
-import CheckBox from 'react-native-check-box';
-//import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
-
-
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image, KeyboardAvoidingView, ScrollView } from 'react-native'
+import CheckBox from 'react-native-check-box'
+axios.defaults.baseURL='https://darzi.nerdtech.in/api'
 export default class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-          username:'username',
+          Value:'',
           email: '',
-          password1: '',
+          password: '',
           switchValue: false,
           showView:true,
-          valueColor:'black',
+          ValueColor:'rgb(37,36,39)',
           passText:'Password',
-          mailText:'email'
+          mailText:'email',
+          first:'',
+          last:''
         })
     
       }
-      checkPass=()=>{
-        if (this.state.password1&& this.state.email&&this.state.username){
-            
-        }
-        else{
-            this.setState({
-                email:'',
-                password1:'',
-                password2:'',
-                valueColor:'red',
-                passText:"Password",
+    signup=()=>{
+        if (this.state.email && this.state.password){
+            axios.post('/register/',
+            {"username":this.state.email,
+            "password":this.state.password,
+            "first_name":this.state.first,
+            "last_name":this.state.last
+        },
+            {headers: {
+                'Content-Type': 'application/json',
+            }}).then((response)=>{
+                if(response.status===200){
+                    this.setState({
+                        ValueColor:'#006400',
+                        Value:`${response.data.message}`
+                    })
+                    //this.props.navigation.replace('Login')
+                }
+                else{
+                    this.setState({
+                        ValueColor:'#800000',
+                        Value:'Something went wrong'
+                    })
+                }
             })
-        }
+            .catch((error)=> {
+                if (error.response) {
+                  console.log(error.response.data);
+                  this.setState({
+                    ValueColor:'#800000',
+                    Value:`${error.response.data.detail}`
+                })
+                }})
+            }
+            else{
+                this.setState({
+                    ValueColor:'#800000',
+                    Value:'Please Enter the valid email and password'
+                        })}
     }
-    
-        render() {
+    render() {
         
         return (
-            
-                <View style={styles.Main}>
+            <View style={styles.Main}>
                 <View style={styles.Headercontainer}>
                     <Text style={[styles.Headtext]}>
                         D A R J I
                     </Text>
                 </View>
-                <View style={styles.Entrycontainer}>
+                
+                <ScrollView style={styles.Entrycontainer}>
                     <View style={{flexDirection:'row',justifyContent:'center',marginTop:'20%',}}>
                         <Image 
                         style={styles.Img}
                         source={require('../../assets/left.png')}/>
-                        <Text style={[styles.Headtext,{fontSize:38,letterSpacing:3,color:'black'}]}>
+                        <Text style={[styles.Headtext,{fontSize:38,letterSpacing:3,color:'rgb(37,36,39)'}]}>
                         SIGNUP
                     </Text>
                     <Image
                     style={styles.Img}
                     source={require('../../assets/right.png')}/>
                     </View>
-                <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
-                    <TextInput
+                <View style={{marginTop:'10%',flexDirection:'column'}}>
+                    <Text style={{alignSelf:'center',color:this.state.ValueColor}}>{this.state.Value}</Text>
+                <TextInput
                     style={styles.Entry}
-                    placeholder={this.state.mailText}
-                    placeholderTextColor={this.state.valueColor}
+                    placeholder='email'
+                    placeholderTextColor={this.state.ValueColor}
                     onChangeText={(email)=>{this.setState({email})}}
-                    value={this.state.email}
+                    keyboardType='email-address'
+                    keyboardAppearance='default'
+                    returnKeyType='next'
+                    autoCapitalize='none'
+                    autoFocus={true}
+                    value={this.state.email}/>
+                    <TextInput
+                    style={styles.Entry}
+                    placeholder='Password'
+                    placeholderTextColor={this.state.ValueColor}
+                    secureTextEntry={this.state.showView}
+                    onChangeText={(password)=>{this.setState({password})}}
+                    keyboardType='ascii-capable'
+                    keyboardAppearance='default'
+                    returnKeyType='next'
+                    autoCapitalize='none'
+                    value={this.state.password}
                     />
                     <TextInput
                     style={styles.Entry}
-                    placeholder={this.state.passText}
-                    placeholderTextColor={this.state.valueColor}
-                    secureTextEntry={this.state.showView}
-                    onChangeText={(password1)=>{this.setState({password1})}}
-                    value={this.state.password1}
-                    />
+                    placeholder='first name'
+                    placeholderTextColor={this.state.ValueColor}
+                    onChangeText={(first)=>{this.setState({first})}}
+                    keyboardType='ascii-capable'
+                    keyboardAppearance='default'
+                    returnKeyType='next'
+                    autoCapitalize='none'
+                    value={this.state.first}/>
+                    <TextInput
+                    style={styles.Entry}
+                    placeholder='last name'
+                    placeholderTextColor={this.state.ValueColor}
+                    onChangeText={(last)=>{this.setState({last})}}
+                    keyboardType='ascii-capable'
+                    keyboardAppearance='default'
+                    returnKeyType='go'
+                    autoCapitalize='none'
+                    value={this.state.last}/>
+                    <View style={{flexDirection:'row',width:'80%',alignSelf:'center'}}>
                     <CheckBox
-                        style={[styles.Tick,]}
+                        style={[styles.Tick]}
                         onClick={()=>{
                         this.setState({
                             switchValue:!this.state.switchValue,
@@ -82,24 +138,20 @@ export default class Signup extends Component {
                         }}
                         isChecked={this.state.switchValue}
                         rightText={"Show password"}
-                    />
-
+                    />                    
+                    </View>
                     <TouchableOpacity style={styles.Button}
-                    onPress={this.checkPass}>
+                    onPress={()=>this.signup()}>
                         <Text style={styles.Text}>Signup</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{alignSelf:'center',marginTop:'5%'}}
-                    onPress={()=>{this.props.navigation.navigate('Login')}}
-                    >
-                        <Text style={{textDecorationLine:'underline',color:'rgb(37,36,39)',fontSize:16}}>
-                            Already a member? Login
-                        </Text>
+                    <TouchableOpacity
+                    style={{alignSelf:'center',marginTop:'5%',justifyContent:'center'}}
+                    onPress={()=>this.props.navigation.replace("Login")}>
+                        <Text style={[styles.Tick2]}>Already a member? Login</Text>
                     </TouchableOpacity>
                 </View>
-                    
-                </View>
+                </ScrollView>                
             </View>
-            
         )
     }
 }
@@ -115,32 +167,35 @@ const styles = StyleSheet.create({
     },
     Entrycontainer:{
         flexDirection:'column',
-        borderTopStartRadius:20,
-        borderTopEndRadius:20,
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
         backgroundColor:'rgb(252, 251, 252)',
-        height:'100%'
+        height:'100%',
+        //paddingBottom:5
     },
     Entry:{
+        
+        borderBottomColor:'black',
         borderBottomWidth:1,
         width:'80%',
         alignSelf:'center',
         margin:10,
+        color:'black',
         fontSize:18,
         fontFamily:'serif',
     },
     Button:{
         borderBottomColor:'black',
         borderWidth:1,
-        width:'30%',
+        width:'35%',
         alignSelf:'center',
         justifyContent:'center',
         borderRadius:8,
-        height:40,
+        height:45,
         marginTop:20,
         alignItems:'center',
         alignContent:'center',
         backgroundColor:'rgb(37,36,39)'
-
     },
     Text:{
         fontSize:22,
@@ -162,9 +217,16 @@ const styles = StyleSheet.create({
         color:'rgb(252, 251, 252)'
     },
     Tick:{
-        width:'80%',
+        width:150,
         alignSelf:'center',
         margin:10,
+    },
+    Tick2:{
+        textDecorationLine:'underline',
+        color:'rgb(37,36,39)',
+        alignSelf:'center',
+        margin:10,
+        padding:5
     }
 
     

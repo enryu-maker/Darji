@@ -16,13 +16,14 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-
+// axios.defaults.baseURL='https://darzi.nerdtech.in/api/'
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
 import Login from './component/Auth/Login';
 import Signup from './component/Auth/Signup';
+import Logout from './component/Auth/Logout';
 import Home from './component/Home/Home';
 import Addclient from './component/Home/Addclient'
 import Search from './component/Home/Search'
@@ -30,6 +31,8 @@ import Profile from './component/Home/Profile';
 import Shirt from './component/Measure/Shirt';
 import Pant from './component/Measure/Pant';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Drawer = createDrawerNavigator();
 const drawerNav=()=>{
   return (
@@ -43,9 +46,23 @@ const drawerNav=()=>{
     <Drawer.Screen name='Profile' component={Profile}/>
       <Drawer.Screen name='AddClient' component={Addclient}/>
       <Drawer.Screen name='SearchClient' component={Search}/>
+      <Drawer.Screen name='Logout' component={Logout}/>
     </Drawer.Navigator>
   )
 }
+retrieveData = async () => {
+  try {
+    const token = await AsyncStorage.getItem('token');
+    const refresh = await AsyncStorage.getItem('refresh');
+    if (token !== null && refresh !== null) {
+      console.log(token);
+      console.log(refresh);
+    }
+  } catch (error) {
+    console.log(error)
+  }
+};
+
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();

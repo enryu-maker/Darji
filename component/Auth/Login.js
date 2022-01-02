@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image, KeyboardAvoidingView } from 'react-native'
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image, } from 'react-native'
 import CheckBox from 'react-native-check-box'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 axios.defaults.baseURL='https://darzi.nerdtech.in/api'
 export default class Login extends Component {
     constructor(props) {
@@ -16,33 +17,62 @@ export default class Login extends Component {
           passText:'Password',
           mailText:'email',
         })
-    
       }
-    login=()=>{
+      retrieveData = async () => {
+        try {
+          const token = await AsyncStorage.getItem('token');
+          const refresh = await AsyncStorage.getItem('refresh');
+          if (token !== null && refresh !== null) {
+            console.log(token);
+            console.log(refresh);
+          }
+        } catch (error) {
+          console.log('hello')
+        }
+      };
+    storeData = async (token,refresh) => {
+        try {
+          await AsyncStorage.setItem(
+           'token',token
+          )
+          await AsyncStorage.setItem(
+            'refresh',refresh
+           )
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    login=async()=>{
         if (this.state.email && this.state.password){
-            axios.post('/login/',
+            await axios.post('/login/',
             {"username":this.state.email,"password":this.state.password},
             {headers: {
                 'Content-Type': 'application/json',
             }}).then((response)=>{
+                //const token = response.data.access
+                console.log(response.data.access)
                 if(response.status===200){
+                    this.storeData(response.data.access,response.data.refresh)
                     this.props.navigation.replace('Draw')
                 }
                 else{
                     this.setState({
-                        ValueColor:'red',
-                        Value:'Something went wrong'
-                    })
+                        ValueColor:'#800000',
+                        Value:'Something went wrong',
+                        email:'',
+                        password:''
+                    }
+                    )
                 }
             })
             .catch((error)=> {
                 if (error.response) {
                   console.log(error.response.data);
                   this.setState({
-                    ValueColor:'red',
+                    ValueColor:'#800000',
                     Value:`${error.response.data.detail}`
                 })
-                }})
+                };})
             }
             else{
                 this.setState({
@@ -75,10 +105,15 @@ export default class Login extends Component {
                 <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
                     <Text style={{alignSelf:'center',color:this.state.ValueColor}}>{this.state.Value}</Text>
                 <TextInput
+                    autoFocus={true}
                     style={styles.Entry}
                     placeholder='email'
                     placeholderTextColor={this.state.ValueColor}
                     onChangeText={(email)=>{this.setState({email})}}
+                    keyboardType='ascii-capable'
+                    keyboardAppearance='default'
+                    returnKeyType='next'
+                    autoCapitalize='none'
                     value={this.state.email}/>
                     <TextInput
                     style={styles.Entry}
@@ -86,6 +121,10 @@ export default class Login extends Component {
                     placeholderTextColor={this.state.ValueColor}
                     secureTextEntry={this.state.showView}
                     onChangeText={(password)=>{this.setState({password})}}
+                    keyboardType='ascii-capable'
+                    keyboardAppearance='default'
+                    returnKeyType='go'
+                    autoCapitalize='none'
                     value={this.state.password}
                     />
                     <View style={{flexDirection:'row',width:'80%',alignSelf:'center'}}>
@@ -112,9 +151,9 @@ export default class Login extends Component {
                         <Text style={styles.Text}>Login</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                    style={{alignSelf:'center',marginTop:'5%'}}
+                    style={{alignSelf:'center',marginTop:'5%',justifyContent:'center'}}
                     onPress={()=>this.props.navigation.navigate("Signup")}>
-                        <Text style={[styles.Tick,{textDecorationLine:'underline',color:'rgb(37,36,39)'}]}>New member? Signup</Text>
+                        <Text style={[styles.Tick2]}>New member? Signup</Text>
                     </TouchableOpacity>
                 </View>
                 </View>                
@@ -153,11 +192,11 @@ const styles = StyleSheet.create({
     Button:{
         borderBottomColor:'black',
         borderWidth:1,
-        width:'30%',
+        width:'35%',
         alignSelf:'center',
         justifyContent:'center',
         borderRadius:8,
-        height:40,
+        height:45,
         marginTop:20,
         alignItems:'center',
         alignContent:'center',
@@ -184,6 +223,12 @@ const styles = StyleSheet.create({
     },
     Tick:{
         width:150,
+        alignSelf:'center',
+        margin:10,
+    },
+    Tick2:{
+        textDecorationLine:'underline',
+        color:'rgb(37,36,39)',
         alignSelf:'center',
         margin:10,
     }
