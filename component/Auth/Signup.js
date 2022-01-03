@@ -84,17 +84,19 @@ export default class Signup extends Component {
                     </View>
                 <View style={{marginTop:'10%',flexDirection:'column'}}>
                     <Text style={{alignSelf:'center',color:this.state.ValueColor}}>{this.state.Value}</Text>
+                    <Text style={{width:'80%',alignSelf:'center',fontSize:18,fontFamily:'serif',padding:5,color:'rgb(37,36,39)'}}>Email</Text>
                 <TextInput
                     style={styles.Entry}
-                    placeholder='email'
+                    placeholder='your email'
                     placeholderTextColor={this.state.ValueColor}
                     onChangeText={(email)=>{this.setState({email})}}
                     keyboardType='email-address'
                     keyboardAppearance='default'
                     returnKeyType='next'
                     autoCapitalize='none'
-                    autoFocus={true}
+                    //autoFocus={true}
                     value={this.state.email}/>
+                    <Text style={{width:'80%',alignSelf:'center',fontSize:18,fontFamily:'serif',padding:5,color:'rgb(37,36,39)'}}>Password</Text>
                     <TextInput
                     style={styles.Entry}
                     placeholder='Password'
@@ -107,9 +109,10 @@ export default class Signup extends Component {
                     autoCapitalize='none'
                     value={this.state.password}
                     />
+                    <Text style={{width:'80%',alignSelf:'center',fontSize:18,fontFamily:'serif',padding:5,color:'rgb(37,36,39)'}}>First Name</Text>
                     <TextInput
                     style={styles.Entry}
-                    placeholder='first name'
+                    placeholder='your first name'
                     placeholderTextColor={this.state.ValueColor}
                     onChangeText={(first)=>{this.setState({first})}}
                     keyboardType='ascii-capable'
@@ -117,9 +120,10 @@ export default class Signup extends Component {
                     returnKeyType='next'
                     autoCapitalize='none'
                     value={this.state.first}/>
+                    <Text style={{width:'80%',alignSelf:'center',fontSize:18,fontFamily:'serif',padding:5,color:'rgb(37,36,39)'}}>Last Name</Text>
                     <TextInput
                     style={styles.Entry}
-                    placeholder='last name'
+                    placeholder='your last name'
                     placeholderTextColor={this.state.ValueColor}
                     onChangeText={(last)=>{this.setState({last})}}
                     keyboardType='ascii-capable'
@@ -139,11 +143,12 @@ export default class Signup extends Component {
                         isChecked={this.state.switchValue}
                         rightText={"Show password"}
                     />                    
-                    </View>
+                    
                     <TouchableOpacity style={styles.Button}
                     onPress={()=>this.signup()}>
                         <Text style={styles.Text}>Signup</Text>
                     </TouchableOpacity>
+                    </View>
                     <TouchableOpacity
                     style={{alignSelf:'center',marginTop:'5%',justifyContent:'center'}}
                     onPress={()=>this.props.navigation.replace("Login")}>
@@ -174,28 +179,33 @@ const styles = StyleSheet.create({
         //paddingBottom:5
     },
     Entry:{
-        
-        borderBottomColor:'black',
-        borderBottomWidth:1,
+        borderColor:'#DCDCDC',
+        borderWidth:1,
         width:'80%',
         alignSelf:'center',
         margin:10,
         color:'black',
         fontSize:18,
         fontFamily:'serif',
+        backgroundColor:'#F5F5F5',
+        borderRadius:20,
+        padding:15,
+        height:55
     },
     Button:{
         borderBottomColor:'black',
         borderWidth:1,
-        width:'35%',
-        alignSelf:'center',
+        width:'45%',
+        alignSelf:'flex-end',
         justifyContent:'center',
-        borderRadius:8,
-        height:45,
+        borderRadius:20,
+        height:55,
         marginTop:20,
         alignItems:'center',
         alignContent:'center',
-        backgroundColor:'rgb(37,36,39)'
+        backgroundColor:'rgb(37,36,39)',
+        //marginLeft:30
+        
     },
     Text:{
         fontSize:22,

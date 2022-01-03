@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { Component } from 'react'
-import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image, } from 'react-native'
+import { Text, StyleSheet, View, TextInput, TouchableOpacity, Image, ScrollView, } from 'react-native'
 import CheckBox from 'react-native-check-box'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 axios.defaults.baseURL='https://darzi.nerdtech.in/api'
@@ -90,7 +90,7 @@ export default class Login extends Component {
                     </Text>
                 </View>
                 
-                <View style={styles.Entrycontainer}>
+                <ScrollView style={styles.Entrycontainer}>
                     <View style={{flexDirection:'row',justifyContent:'center',marginTop:'20%',}}>
                         <Image 
                         style={styles.Img}
@@ -104,10 +104,11 @@ export default class Login extends Component {
                     </View>
                 <View style={{marginTop:'10%',flexDirection:'column',justifyContent:'space-evenly'}}>
                     <Text style={{alignSelf:'center',color:this.state.ValueColor}}>{this.state.Value}</Text>
+                    <Text style={{width:'80%',alignSelf:'center',fontSize:18,fontFamily:'serif',padding:5,color:'rgb(37,36,39)'}}>Email</Text>
                 <TextInput
                     autoFocus={true}
                     style={styles.Entry}
-                    placeholder='email'
+                    placeholder='your email'
                     placeholderTextColor={this.state.ValueColor}
                     onChangeText={(email)=>{this.setState({email})}}
                     keyboardType='ascii-capable'
@@ -115,6 +116,7 @@ export default class Login extends Component {
                     returnKeyType='next'
                     autoCapitalize='none'
                     value={this.state.email}/>
+                    <Text style={{width:'80%',alignSelf:'center',fontSize:18,fontFamily:'serif',padding:5,color:'rgb(37,36,39)'}}>Password</Text>
                     <TextInput
                     style={styles.Entry}
                     placeholder='Password'
@@ -125,9 +127,11 @@ export default class Login extends Component {
                     keyboardAppearance='default'
                     returnKeyType='go'
                     autoCapitalize='none'
+                    passwordRules='minlength: 8'
                     value={this.state.password}
                     />
-                    <View style={{flexDirection:'row',width:'80%',alignSelf:'center'}}>
+                    <View style={{flexDirection:'row',justifyContent:'center'}}>
+                    <View style={{flexDirection:'column',alignSelf:'center',padding:5}}>
                     <CheckBox
                         style={[styles.Tick]}
                         onClick={()=>{
@@ -140,7 +144,7 @@ export default class Login extends Component {
                         rightText={"Show password"}
                     />
                     <TouchableOpacity>
-                    <Text style={[styles.Tick,{textDecorationLine:'underline',color:'rgb(37,36,39)'}]}>
+                    <Text style={[styles.Tick2]}>
                         Forget Password?
                     </Text>
                     </TouchableOpacity>
@@ -150,13 +154,14 @@ export default class Login extends Component {
                     onPress={()=>this.login()}>
                         <Text style={styles.Text}>Login</Text>
                     </TouchableOpacity>
+                    </View>
                     <TouchableOpacity
-                    style={{alignSelf:'center',marginTop:'5%',justifyContent:'center'}}
+                    style={{alignSelf:'center',justifyContent:'center'}}
                     onPress={()=>this.props.navigation.navigate("Signup")}>
                         <Text style={[styles.Tick2]}>New member? Signup</Text>
                     </TouchableOpacity>
                 </View>
-                </View>                
+                </ScrollView>                
             </View>
         )
     }
@@ -173,21 +178,24 @@ const styles = StyleSheet.create({
     },
     Entrycontainer:{
         flexDirection:'column',
-        borderTopStartRadius:20,
-        borderTopEndRadius:20,
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
         backgroundColor:'rgb(252, 251, 252)',
         height:'100%'
     },
     Entry:{
-        
-        borderBottomColor:'black',
-        borderBottomWidth:1,
+        borderColor:'#DCDCDC',
+        borderWidth:1,
         width:'80%',
         alignSelf:'center',
         margin:10,
         color:'black',
         fontSize:18,
         fontFamily:'serif',
+        backgroundColor:'#F5F5F5',
+        borderRadius:20,
+        padding:15,
+        height:55
     },
     Button:{
         borderBottomColor:'black',
@@ -195,8 +203,8 @@ const styles = StyleSheet.create({
         width:'35%',
         alignSelf:'center',
         justifyContent:'center',
-        borderRadius:8,
-        height:45,
+        borderRadius:20,
+        height:55,
         marginTop:20,
         alignItems:'center',
         alignContent:'center',
@@ -231,6 +239,8 @@ const styles = StyleSheet.create({
         color:'rgb(37,36,39)',
         alignSelf:'center',
         margin:10,
+        padding:5,
+        fontSize:16
     }
 
     

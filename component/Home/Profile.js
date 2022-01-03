@@ -51,7 +51,7 @@ export default class Profile extends Component {
                             Cancle
                         </Text>
                     </TouchableOpacity>
-                    <Text style={[styles.Headtext,{fontWeight:'800'}]}>
+                    <Text style={[styles.Headtext,{fontWeight:'bold'}]}>
                         Edit Profile
                     </Text>
                     <TouchableOpacity>
@@ -60,6 +60,8 @@ export default class Profile extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
+                <View style={{flexDirection:'row',alignSelf:'center'}}>
+
                 
                 <View style={styles.profile}>
                     <Image source={require('../../assets/usersample.png')}
@@ -70,19 +72,29 @@ export default class Profile extends Component {
                             change profile pic
                         </Text>
                     </TouchableOpacity>
+                    </View>
+                    <View style={styles.profile}>
+                    <Image source={require('../../assets/usersample.png')}
+                    style={styles.UserProfile}/>
+                    <TouchableOpacity
+                    onPress={()=>this.openCamara()}>
+                        <Text style={[styles.Headtext,{fontSize:16,alignSelf:'center',padding:10}]}>
+                            change shop logo 
+                        </Text>
+                    </TouchableOpacity>
+                    </View>
                 </View>
                 <ScrollView style={styles.container}>
-                    <View style={styles.Format}>
-                    <Text style={styles.FormatText}>
+                    
+                    <Text style={[styles.FormatText,{marginTop:'5%'}]}>
                         Name
                     </Text>
                     <TextInput
-                    style={styles.Input}
+                    style={[styles.Input]}
                     placeholder={this.state.Name}
                     placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Name)=>{this.setState({Name})}}/>
-                    </View>
-                    <View style={styles.Format}>
+                    
                     <Text style={styles.FormatText}>
                         Phone
                     </Text>
@@ -92,10 +104,9 @@ export default class Profile extends Component {
                     placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Phone)=>{this.setState({Phone})}}
                     />
-                    </View>
-                    <View style={styles.Format}>
+                    
                     <Text style={styles.FormatText}>
-                        Shop
+                        Shop Name
                     </Text>
                     <TextInput
                     style={styles.Input}
@@ -103,10 +114,9 @@ export default class Profile extends Component {
                     placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(ShopName)=>{this.setState({ShopName})}}
                     />
-                    </View>
-                    <View style={[styles.Format]}>
+                    
                     <Text style={styles.FormatText}>
-                    Address  
+                    Shop Address  
                     </Text>
                     <TextInput
                     style={[styles.Input,{}]}
@@ -114,8 +124,8 @@ export default class Profile extends Component {
                     placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(ShopAddr)=>{this.setState({ShopAddr})}}
                     />
-                    </View>
-                    <View style={styles.Format}>
+                    
+                    
                     <Text style={styles.FormatText}>
                         Email 
                     </Text>
@@ -125,8 +135,7 @@ export default class Profile extends Component {
                     placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Email)=>{this.setState({Email})}}
                     />
-                    </View>
-                    <View style={styles.Format}>
+                    
                     <Text style={styles.FormatText}>
                         Website 
                     </Text>
@@ -136,18 +145,11 @@ export default class Profile extends Component {
                     placeholderTextColor={'rgb(37,36,39)'}
                     onChangeText={(Website)=>{this.setState({Website})}}
                     />
-                    </View>
-                    <View style={styles.Format}>
-                    <Text style={styles.FormatText}>
-                        Logo 
-                    </Text>
-                    <Image source={require('../../assets/usersample.png')}
-                    style={[styles.UserProfile,{width:70,height:70,marginTop:0}]}/>
-                    <TouchableOpacity style={styles.Button}
+                    {/* <TouchableOpacity style={styles.Button}
                     onPress={()=>this.openCamara()}>
                         <Text style={styles.Text}>Add Logo</Text>
-                    </TouchableOpacity>
-                    </View>
+                    </TouchableOpacity> */}
+                    
                 </ScrollView>
                 
             </View>
@@ -185,30 +187,39 @@ const styles = StyleSheet.create({
         borderColor:'grey'
     },
     container:{
+        //flexDirection:'row',
         backgroundColor:'rgb(252, 251, 252)',
         height:'100%',
         borderTopLeftRadius:20,
-        borderTopRightRadius:20
+        borderTopRightRadius:20,
+        
     },
     Format:{
         flexDirection:'row',
-        justifyContent:'space-between',
-        padding:7,
-        
+        justifyContent:'center' ,
+        padding:10       
     },
     FormatText:{
-        padding:15,
+        width:'80%',
+        alignSelf:'center',
         fontSize:18,
-        justifyContent:'center',
-        fontFamily:'serif'
+        fontFamily:'serif',
+        padding:5,
+        color:'rgb(37,36,39)'
     },
     Input:{
-        borderBottomWidth:1,
-        width:'65%',
-        margin:5,
-        borderColor:'rgb(37,36,39)',
-        fontSize:16,
-        fontFamily:'serif'
+        borderColor:'#DCDCDC',
+        borderWidth:1,
+        width:'80%',
+        alignSelf:'center',
+        margin:10,
+        color:'black',
+        fontSize:18,
+        fontFamily:'serif',
+        backgroundColor:'#F5F5F5',
+        borderRadius:20,
+        padding:15,
+        height:55
     },
     Button:{
         borderBottomColor:'black',
