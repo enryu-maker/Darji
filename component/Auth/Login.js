@@ -135,7 +135,7 @@ export default class Login extends Component {
                     <CheckBox
                         style={[styles.Tick]}
                         onClick={()=>{
-                        this.setState({
+                       this.setState({
                             switchValue:!this.state.switchValue,
                             showView:!this.state.showView
                         })
@@ -157,7 +157,7 @@ export default class Login extends Component {
                     </View>
                     <TouchableOpacity
                     style={{alignSelf:'center',justifyContent:'center'}}
-                    onPress={()=>this.props.navigation.navigate("Signup")}>
+                    onPress={()=>this.props.navigation.replace("Signup")}>
                         <Text style={[styles.Tick2]}>New member? Signup</Text>
                     </TouchableOpacity>
                 </View>

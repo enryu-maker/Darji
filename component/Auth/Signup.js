@@ -86,6 +86,7 @@ export default class Signup extends Component {
                     <Text style={{alignSelf:'center',color:this.state.ValueColor}}>{this.state.Value}</Text>
                     <Text style={{width:'80%',alignSelf:'center',fontSize:18,fontFamily:'serif',padding:5,color:'rgb(37,36,39)'}}>Email</Text>
                 <TextInput
+                    autoFocus={true}
                     style={styles.Entry}
                     placeholder='your email'
                     placeholderTextColor={this.state.ValueColor}

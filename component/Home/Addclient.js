@@ -54,18 +54,18 @@ export default class Addclient extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.UserInput}>
-                    <View style={styles.Entry}>
+                    
                         <Text style={styles.EntryText}>Name</Text>
                         <TextInput placeholder='Name'
                         placeholderTextColor={'rgb(37,36,39)'}
                         style={styles.Input}/>
-                    </View>
-                    <View style={styles.Entry}>
+                    
+                    
                         <Text style={styles.EntryText}>Phone</Text>
                         <TextInput placeholder='Phone'
                         placeholderTextColor={'rgb(37,36,39)'}
                         style={styles.Input}/>
-                    </View>
+                    
                     <View style={{flexDirection:'row',justifyContent:'center',padding:10}}>
                         <Image 
                         style={styles.Img}
@@ -132,7 +132,9 @@ const styles = StyleSheet.create({
         height:100,
         borderRadius:100/2,
         alignSelf:'center',
-        marginTop:20
+        marginTop:20,
+        borderColor:'rgb(37,36,39)',
+        borderWidth:2.5
     },
     buttonText:{
         fontSize:18,
@@ -153,12 +155,18 @@ const styles = StyleSheet.create({
         fontFamily:'serif'
     },
     Input:{
-        borderBottomWidth:1,
-        width:'65%',
-        margin:5,
-        borderColor:'rgb(37,36,39)',
-        fontSize:16,
-        fontFamily:'serif'
+        borderColor:'#DCDCDC',
+        borderWidth:1,
+        width:'80%',
+        alignSelf:'center',
+        margin:10,
+        color:'black',
+        fontSize:18,
+        fontFamily:'serif',
+        backgroundColor:'#F5F5F5',
+        borderRadius:20,
+        padding:15,
+        height:55
     },
     pick:{
         fontSize:16

@@ -74,8 +74,8 @@ export default class Profile extends Component {
                     </TouchableOpacity>
                     </View>
                     <View style={styles.profile}>
-                    <Image source={require('../../assets/usersample.png')}
-                    style={styles.UserProfile}/>
+                    <Image source={require('../../assets/logo.jpeg')}
+                    style={[styles.UserProfile,{borderRadius:20}]}/>
                     <TouchableOpacity
                     onPress={()=>this.openCamara()}>
                         <Text style={[styles.Headtext,{fontSize:16,alignSelf:'center',padding:10}]}>
@@ -178,7 +178,9 @@ const styles = StyleSheet.create({
         height:100,
         borderRadius:100/2,
         alignSelf:'center',
-        marginTop:20
+        marginTop:20,
+        borderColor:'rgb(252, 251, 252)',
+        borderWidth:2.5
     },
     HorizontalLine:{
         borderStyle: 'solid',
