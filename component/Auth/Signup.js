@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TextInput, TouchableOpacity, FlatList, Image, KeyboardAvoidingView, ScrollView } from 'react-native'
 import CheckBox from 'react-native-check-box'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 axios.defaults.baseURL='https://darzi.nerdtech.in/api'
 export default class Signup extends Component {
     constructor(props) {
@@ -20,6 +21,18 @@ export default class Signup extends Component {
         })
     
       }
+      retrieveData = async () => {
+        try {
+          const token = await AsyncStorage.getItem('token');
+          const refresh = await AsyncStorage.getItem('refresh');
+          if (token !== null && refresh !== null) {
+            console.log(token);
+            console.log(refresh);
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      };
     signup=()=>{
         if (this.state.email && this.state.password){
             axios.post('/register/',

@@ -19,7 +19,9 @@ export default class Login extends Component {
         })
       }
       retrieveData = async () => {
+          //roooconsole.log('hi')
         try {
+        
           const token = await AsyncStorage.getItem('token');
           const refresh = await AsyncStorage.getItem('refresh');
           if (token !== null && refresh !== null) {
@@ -42,9 +44,9 @@ export default class Login extends Component {
           console.log(e)
         }
       }
-    login=async()=>{
+    login=()=>{
         if (this.state.email && this.state.password){
-            await axios.post('/login/',
+            axios.post('/login/',
             {"username":this.state.email,"password":this.state.password},
             {headers: {
                 'Content-Type': 'application/json',
@@ -134,6 +136,8 @@ export default class Login extends Component {
                     <View style={{flexDirection:'column',alignSelf:'center',padding:5}}>
                     <CheckBox
                         style={[styles.Tick]}
+                        // checkedCheckBoxColor='rgb(37,36,39)'
+                        // uncheckedCheckBoxColor='rgb(37,36,39)'
                         onClick={()=>{
                        this.setState({
                             switchValue:!this.state.switchValue,

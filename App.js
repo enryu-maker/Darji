@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,7 +16,6 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-// axios.defaults.baseURL='https://darzi.nerdtech.in/api/'
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -50,40 +49,78 @@ const drawerNav=()=>{
     </Drawer.Navigator>
   )
 }
-retrieveData = async () => {
-  try {
-    const token = await AsyncStorage.getItem('token');
-    const refresh = await AsyncStorage.getItem('refresh');
-    if (token !== null && refresh !== null) {
-      console.log(token);
-      console.log(refresh);
-    }
-  } catch (error) {
-    console.log(error)
-  }
-};
+const againRefresh=(refresh)=>{
+  axios.post('https://darzi.nerdtech.in/api/token/refresh/',
+  {
+    "refresh": refresh
+  },{headers: {
+    'Content-Type': 'application/json',
+}}).then((response)=>{
+  AsyncStorage.clear()
+  AsyncStorage.setItem('token',response.data.access)
+  AsyncStorage.setItem('token',response.data.refresh)
+}).catch((error)=>{
+  this.props.navigation.replace('Login')
+})
+}
 
 const App = () => {
+  async function retrieveData(){
+    try {
+      const token = await AsyncStorage.getItem('token');
+      const refresh = await AsyncStorage.getItem('refresh');
+      console.log(token)
+      console.log(refresh)
+      if (token !== null && refresh !== null) {
+        global.Route=true
+        console.log(global.Route)
+      }
+      else{
+        global.Route=false
+        console.log(global.Route)
+      }
+    } catch (error) {
+      global.Route=false
+      console.log(global.Route)
+    }
+  };
+  retrieveData();
   useEffect(() => {
     SplashScreen.hide();
-  }, [])
-
+    
+    
+  },[]);
   return (
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login"
-        screenOptions={{headerShown:false}}>
+          <Stack.Navigator screenOptions={{headerShown:false}}>
+        
+          {global.Route==true?(
+          <>
+          <Stack.Screen name='Draw' component={drawerNav}/>
+          <Stack.Screen name='Login' component={Login}/>
+          <Stack.Screen name='Signup' component={Signup}/>
+          <Stack.Screen name='Shirt' component={Shirt}/>
+          <Stack.Screen name='Pant' component={Pant}/>
+          </>
+          
+          ):(
+          <>
           <Stack.Screen name='Login' component={Login}/>
           <Stack.Screen name='Signup' component={Signup}/>
           <Stack.Screen name='Draw' component={drawerNav}/>
           <Stack.Screen name='Shirt' component={Shirt}/>
           <Stack.Screen name='Pant' component={Pant}/>
-        </Stack.Navigator>
-      </NavigationContainer>
+          </>
+          
+          )
+          
+          }
+          </Stack.Navigator>
+          </NavigationContainer>
     </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
   sectionContainer: {
     marginTop: 32,

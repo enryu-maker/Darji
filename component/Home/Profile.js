@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, TouchableOpacity, Image, ScrollView, TextInput } from 'react-native'
 import { launchImageLibrary,ImageLibraryOptions } from 'react-native-image-picker';
@@ -6,16 +7,19 @@ export default class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            ProfilePic:'../../assets/usersample.png',
+            photo:null,
             Name:'Akif Khan',
             Phone:'+91 9405649047',
             ShopName:'NerdTech',
             ShopAddr:'Nashik',
             Email:'akifkhan60067@gmail.com',
             Website:'nerdtech.in',
+            logo:null,
+            picdata:null,
+            logodata:null,
         })
     }
-    openCamara = () => {
+    ProfileChanger = () => {
         const options = {
         storageOptions: {
         path: 'images',
@@ -25,23 +29,66 @@ export default class Profile extends Component {
         };
         
         launchImageLibrary(options, response => {
-        console.log('Response = ', response);
-        if (response.didCancel) {
-        console.log('User cancelled image picker');
-        } else if (response.error) {
-        console.log('ImagePicker Error:' , response.error);
-        } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        } else {
-        // You can also display the image using data:
-        const source = {uri: 'data:image/jpeg;base64,' + response.base64};
-        this.setState({
-            ProfilePic:source
-        });
+            console.log(response.assets[0].base64)
+            if (response.assets) {
+            imageAssetsArray = response.assets[0].uri
+            this.setState({
+                photo:imageAssetsArray,
+                picdata:response.assets[0].base64
+            })
         }
         });
         };
+        logoChanger = () => {
+            const options = {
+            storageOptions: {
+            path: 'images',
+            mediaType: 'photo',
+            },
+            includeBase64: true,
+            };
+            
+            launchImageLibrary(options, response => {
+                if (response.assets) {
+                imageAssetsArray = response.assets[0].uri
+                this.setState({
+                    logo:imageAssetsArray,
+                    logodata:response.assets[0].base64
+
+                })
+            }
+            });
+            };
+        uploadData=()=>{
+            axios.post('',{
+                
+            },{headers: {
+                'Content-Type': 'application/json',
+            }}).then((response)=>{
+                //const token = response.data.access
+                console.log(response.data.access)
+                if(response.status===200){
+                    //alert('Client added sucessfully')
+                    this.props.navigation.replace('Draw')
+                }
+                else{
+                    alert('something went wrong')
+                }
+            })
+            .catch((error)=> {
+                if (error.response) {
+                  console.log(error.response.data);
+                  this.setState({
+                    ValueColor:'#800000',
+                    Value:`${error.response.data.detail}`
+                })
+                };})
+            }
+        
     render() {
+        const{photo}=this.state;
+        //const {img}=Image.resolveAssetSource(photo).uri
+        
         return (
             <View style={styles.Maincontainer}>
                 <View style={styles.Headbuttons}>
@@ -54,7 +101,8 @@ export default class Profile extends Component {
                     <Text style={[styles.Headtext,{fontWeight:'bold'}]}>
                         Edit Profile
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={()=>console.log(this.state.photo)}>
                         <Text style={[styles.Headtext,]}>
                             Done
                         </Text>
@@ -64,20 +112,20 @@ export default class Profile extends Component {
 
                 
                 <View style={styles.profile}>
-                    <Image source={require('../../assets/usersample.png')}
+                    <Image source={{uri:photo}}
                     style={styles.UserProfile}/>
                     <TouchableOpacity
-                    onPress={()=>this.openCamara()}>
+                    onPress={()=>this.ProfileChanger()}>
                         <Text style={[styles.Headtext,{fontSize:16,alignSelf:'center',padding:10}]}>
                             change profile pic
                         </Text>
                     </TouchableOpacity>
                     </View>
                     <View style={styles.profile}>
-                    <Image source={require('../../assets/logo.jpeg')}
+                    <Image source={{uri:this.state.logo}}
                     style={[styles.UserProfile,{borderRadius:20}]}/>
                     <TouchableOpacity
-                    onPress={()=>this.openCamara()}>
+                    onPress={()=>this.logoChanger()}>
                         <Text style={[styles.Headtext,{fontSize:16,alignSelf:'center',padding:10}]}>
                             change shop logo 
                         </Text>

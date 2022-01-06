@@ -8,7 +8,7 @@ export default class Logout extends Component {
      }
      outer=()=>{
         AsyncStorage.clear();
-        console.log(AsyncStorage.getItem('token'))
+        //console.log(AsyncStorage.getItem('token'))
         this.props.navigation.replace('Login')
      }
     render() {

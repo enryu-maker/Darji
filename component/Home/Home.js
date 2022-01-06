@@ -2,6 +2,26 @@ import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image,TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 export default class Home extends Component {
+    constructor(props) {
+        super(props);
+        //this.retrieveData
+    }
+    retrieveData =  async() => {
+        // console.log('hi')
+        try {
+          const token =  await AsyncStorage.getItem('token');
+          const refresh = await AsyncStorage.getItem('refresh');
+        //   console.log(token);
+        //     console.log(refresh);
+          if (token !== null && refresh !== null) {
+            console.log('hello')
+            console.log(token);
+            console.log(refresh);
+          }
+        } catch (error) {
+          console.log('hello')
+        }
+      };
     render() {
         
         return (
