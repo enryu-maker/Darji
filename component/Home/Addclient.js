@@ -55,14 +55,14 @@ export default class Addclient extends Component {
                     </View>
                     <View style={styles.UserInput}>
 
-                        <Text style={styles.EntryText}>Name</Text>
-                        <TextInput placeholder='Name'
+                        <Text style={[styles.FormatText, { marginTop: '5%' }]}>Name</Text>
+                        <TextInput placeholder='Client Name'
                             placeholderTextColor={'rgb(37,36,39)'}
                             style={styles.Input} />
 
 
-                        <Text style={styles.EntryText}>Phone</Text>
-                        <TextInput placeholder='Phone'
+                        <Text style={[styles.FormatText, { marginTop: '5%' }]}>Phone</Text>
+                        <TextInput placeholder='Client Phone'
                             placeholderTextColor={'rgb(37,36,39)'}
                             style={styles.Input} />
 
@@ -70,14 +70,14 @@ export default class Addclient extends Component {
                             <Image
                                 style={styles.Img}
                                 source={require('../../assets/left.png')} />
-                            <Text style={[styles.buttonText, { fontSize: 22, color: 'rgb(37,36,39)', letterSpacing: 0 }]}>
+                            <Text style={[styles.buttonText, { fontSize: 24, color: 'rgb(37,36,39)', letterSpacing: 0 }]}>
                                 Measurements
                             </Text>
                             <Image
                                 style={styles.Img}
                                 source={require('../../assets/right.png')} />
                         </View>
-                        <View style={styles.Entry}>
+                        {/* <View style={styles.Entry}>
                             <Text style={styles.EntryText}>
                                 Select Dress type
                             </Text>
@@ -90,7 +90,7 @@ export default class Addclient extends Component {
                                 <Picker.Item label="Shirt" fontFamily='serif' value="Shirt" style={styles.pick} />
                                 <Picker.Item label="Pant" fontFamily='serif' value="Pant" style={styles.pick} />
                             </Picker>
-                        </View>
+                        </View> */}
                         <TouchableOpacity style={styles.Button}
                             onPress={() => this.props.navigation.navigate(this.state.DressType)}>
                             <Text style={styles.Text}>
@@ -174,15 +174,16 @@ const styles = StyleSheet.create({
     Button: {
         borderBottomColor: 'black',
         borderWidth: 1,
-        width: '40%',
+        width: '35%',
         alignSelf: 'center',
         justifyContent: 'center',
-        borderRadius: 8,
-        height: 40,
+        borderRadius: 20,
+        height: 55,
         marginTop: 20,
         alignItems: 'center',
         alignContent: 'center',
-        backgroundColor: 'rgb(37,36,39)'
+        backgroundColor: 'rgb(37,36,39)',
+        margin:10
     },
     Text: {
         fontSize: 22,
@@ -195,4 +196,12 @@ const styles = StyleSheet.create({
         height: 40,
         width: 100
     },
+    FormatText: {
+        width: '80%',
+        alignSelf: 'center',
+        fontSize: 18,
+        fontFamily: 'serif',
+        padding: 5,
+        color: 'rgb(37,36,39)'
+    }
 })

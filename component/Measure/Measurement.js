@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 
-export default class Search extends Component {
+export default class Measurement extends Component {
     render() {
         return (
             <View>
