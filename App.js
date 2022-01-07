@@ -40,10 +40,10 @@ const App = () => {
   const [Route,setRoute]=useState(false)
   async function retrieveData(){
     try {
-      // const token = await AsyncStorage.getItem('token');
-      // const refresh = await AsyncStorage.getItem('refresh');
-      console.log(token)
-      console.log(refresh)
+      const token = await AsyncStorage.getItem('token');
+      const refresh = await AsyncStorage.getItem('refresh');
+      // console.log(token)
+      // console.log(refresh)
       if (token !== null && refresh !== null) {
         setRoute(true)
         // console.log(Route)
