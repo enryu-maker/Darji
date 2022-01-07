@@ -17,38 +17,10 @@ import {
   View,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
-import Login from './component/Auth/Login';
-import Signup from './component/Auth/Signup';
-import Logout from './component/Auth/Logout';
-import Home from './component/Home/Home';
-import Addclient from './component/Home/Addclient'
-import Search from './component/Home/Search'
-import Profile from './component/Home/Profile';
-import Shirt from './component/Measure/Shirt';
-import Pant from './component/Measure/Pant';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const Drawer = createDrawerNavigator();
-const drawerNav=()=>{
-  return (
-      <Drawer.Navigator initialRouteName='Home'
-      screenOptions={{headerShown:false,drawerActiveBackgroundColor:'rgb(37,36,39)',
-      drawerActiveTintColor:'rgb(252, 251, 252)',
-      drawerStyle:{backgroundColor:'rgb(252, 251, 252)'},
-    drawerLabelStyle:{fontFamily:'serif',fontSize:18}}}
-      >
-    <Drawer.Screen name='Home' component={Home}/>
-    <Drawer.Screen name='Profile' component={Profile}/>
-      <Drawer.Screen name='AddClient' component={Addclient}/>
-      <Drawer.Screen name='SearchClient' component={Search}/>
-      <Drawer.Screen name='Logout' component={Logout}/>
-    </Drawer.Navigator>
-  )
-}
+import Authnav from './component/Nav/Authnav';
+import Rootnav from './component/Nav/Rootnav';
 const againRefresh=(refresh)=>{
   axios.post('https://darzi.nerdtech.in/api/token/refresh/',
   {
@@ -65,59 +37,38 @@ const againRefresh=(refresh)=>{
 }
 
 const App = () => {
+  const [Route,setRoute]=useState(false)
   async function retrieveData(){
     try {
-      const token = await AsyncStorage.getItem('token');
-      const refresh = await AsyncStorage.getItem('refresh');
+      // const token = await AsyncStorage.getItem('token');
+      // const refresh = await AsyncStorage.getItem('refresh');
       console.log(token)
       console.log(refresh)
       if (token !== null && refresh !== null) {
-        global.Route=true
-        console.log(global.Route)
+        setRoute(true)
+        // console.log(Route)
       }
       else{
-        global.Route=false
-        console.log(global.Route)
+        setRoute(false)
+        // console.log(Route)
       }
     } catch (error) {
-      global.Route=false
-      console.log(global.Route)
+      setRoute(false)
+      // console.log(Route)
     }
   };
-  retrieveData();
+  
   useEffect(() => {
+    retrieveData();
     SplashScreen.hide();
     
     
   },[]);
   return (
     <SafeAreaView style={{flex: 1}}>
-      <NavigationContainer>
-          <Stack.Navigator screenOptions={{headerShown:false}}>
-        
-          {global.Route==true?(
-          <>
-          <Stack.Screen name='Draw' component={drawerNav}/>
-          <Stack.Screen name='Login' component={Login}/>
-          <Stack.Screen name='Signup' component={Signup}/>
-          <Stack.Screen name='Shirt' component={Shirt}/>
-          <Stack.Screen name='Pant' component={Pant}/>
-          </>
-          
-          ):(
-          <>
-          <Stack.Screen name='Login' component={Login}/>
-          <Stack.Screen name='Signup' component={Signup}/>
-          <Stack.Screen name='Draw' component={drawerNav}/>
-          <Stack.Screen name='Shirt' component={Shirt}/>
-          <Stack.Screen name='Pant' component={Pant}/>
-          </>
-          
-          )
-          
-          }
-          </Stack.Navigator>
-          </NavigationContainer>
+        {
+          Route === true ? <Rootnav/> : <Authnav/>
+        }
     </SafeAreaView>
   );
 };
