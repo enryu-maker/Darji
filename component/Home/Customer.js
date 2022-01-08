@@ -45,17 +45,20 @@ export default class Customer extends Component {
                         <Card key={index} Name={listItem.Name} Number={listItem.Number} Address={listItem.Address}/>
                         ))}
                     </ScrollView>
-                    {/* <View style={{flex: 1,position:'relative'}}>
+                    <View style={{flex: 1,position:'relative'}}>
                         <View style={{flex: 1,justifyContent: 'flex-end'}}>
                         <TouchableOpacity
-                        style={{width:'100%',height:55,backgroundColor:'red', 
-                        alignItems:'center',justifyContent:'center'}}
+                        style={styles.btn}
+                        onPress={()=>this.props.navigation.navigate('Addclient')}
                         >
-                        <Text style={{color:'white', fontSize: 16}}>Bottom Button</Text>
+                            
+                            <Image source={require('../../assets/add-user.png')}
+                            style={styles.img}/>
+                        <Text style={styles.btntext}>Add Customer</Text>
                         </TouchableOpacity>
                         </View>
                         
-                    </View> */}
+                    </View>
                     
                 </View>
                 
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
     Input:{
         borderColor: '#DCDCDC',
         borderWidth: 1,
-        width: '90%',
+        width: '80%',
         alignSelf: 'center',
         margin: 15,
         color: 'black',
@@ -105,42 +108,28 @@ const styles = StyleSheet.create({
         padding: 15,
         height: 55
     },
-    show:{
-        borderColor: '#DCDCDC',
-        borderWidth: 1,
-        width: '90%',
-        alignSelf: 'center',
-        margin: 15,
-        color: 'black',
-        fontSize: 18,
-        fontFamily: 'serif',
-        backgroundColor: '#F5F5F5',
-        borderRadius: 29,
-        padding: 15,
-        height: 100
+    btn:{
+        width:'100%',
+        height:55,
+        backgroundColor:'rgb(37,36,39)', 
+        alignItems:'center',
+        justifyContent:'center',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        alignSelf:'center',
+        flexDirection:'row',
+        
     },
     img:{
-        width: 70,
-        height: 70,
-        borderRadius: 70 / 2,
-        // alignSelf: 'flex-start',
-        // marginTop: 20,
-        borderColor: 'rgb(37,36,39)',
-        borderWidth: 2.5,
-        justifyContent:'center',
+        width:30,
+        height:30
     },
-    userdata:{
+    btntext:{
+        color:'rgb(252, 251, 252)', 
+        fontSize: 18,
+        letterSpacing:3,
         fontFamily:'serif',
-        fontSize:16
-    },
-    btn:{
-        width: '100%', 
-      height: 50, 
-      backgroundColor: '#FF9800', 
-      justifyContent: 'center', 
-      alignItems: 'center',
-      position: 'absolute',
-      bottom: 0
+        fontWeight:'bold'
     }
     
 })

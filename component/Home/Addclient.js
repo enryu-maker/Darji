@@ -38,8 +38,16 @@ export default class Addclient extends Component {
         return (
             <View style={styles.Main}>
                 <View style={styles.Header}>
+                    <View style={{flexDirection:'row',alignSelf:'center'}}>
+                    <Image source={require('../../assets/add-user.png')}
+                    style={styles.logo}/>
                     <Text style={styles.Headtext}>
-                        Add Client
+                        Add 
+                    </Text>
+                    </View>
+                    
+                    <Text style={styles.Headtext}>
+                        Customer
                     </Text>
                 </View>
                 <ScrollView style={styles.Body}>
@@ -203,5 +211,10 @@ const styles = StyleSheet.create({
         fontFamily: 'serif',
         padding: 5,
         color: 'rgb(37,36,39)'
+    },
+    logo:{
+        width:50,
+        height:50
     }
+    
 })
