@@ -11,13 +11,13 @@ export default class Card extends Component {
                                 style={styles.img}/>
                                 <View style={{flexDirection:'column',marginLeft:'20%'}}>
                                     <Text style={styles.userdata}> 
-                                        Client Name
+                                        {this.props.Name}
                                     </Text>
                                     <Text style={styles.userdata}>
-                                        +91 123456789
+                                        {this.props.Number}
                                     </Text>
                                     <Text style={styles.userdata}>
-                                        India
+                                        {this.props.Address}
                                     </Text>
                                 </View>
                                 </View>

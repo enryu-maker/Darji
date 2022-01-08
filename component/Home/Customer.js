@@ -3,13 +3,28 @@ import { Text, StyleSheet, View,ScrollView, TextInput, TouchableOpacity, Image }
 import Card from './Card'
 export default class Customer extends Component {
     constructor(props){
-        super(props)
-        
-    }
-    updater=()=>{
-
-    }
+        super(props);
+        this.state=({
+            search:'',
+        })
+    };
+    filterList(list) {
+        return list.filter(
+          (listItem) =>
+            listItem.Number
+              .toLowerCase()
+              .includes(this.state.search.toLowerCase()) ||
+            listItem.Name.toLowerCase().includes(this.state.search.toLowerCase()),
+        );
+      }
     render() {
+        const list =[
+            {Profile:'',Name:'Akif Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
+            {Profile:'',Name:'kaif Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
+            {Profile:'',Name:'awais Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
+            {Profile:'',Name:'sultan Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
+            {Profile:'',Name:'Gaurav J',Number:'+91 9405649047',Address:'Ambad Link road'}
+        ];
         return (
             <View style={styles.Main}>
                 <View style={styles.Header}>
@@ -23,16 +38,12 @@ export default class Customer extends Component {
                     placeholder='Search Customers'
                     textAlign='center'
                     placeholderTextColor={'rgb(37,36,39)'}
+                    onChangeText={(search) => this.setState({search})}
                     />
                     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
-                        <Card/>
+                    {this.filterList(list).map((listItem, index) => (
+                        <Card key={index} Name={listItem.Name} Number={listItem.Number} Address={listItem.Address}/>
+                        ))}
                     </ScrollView>
                     {/* <View style={{flex: 1,position:'relative'}}>
                         <View style={{flex: 1,justifyContent: 'flex-end'}}>
