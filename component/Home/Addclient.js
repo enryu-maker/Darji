@@ -1,12 +1,17 @@
 import React, { Component, useState } from 'react'
-import { Text, StyleSheet, View, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native'
+import { Text, StyleSheet, View, ScrollView, Image, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { launchImageLibrary, ImageLibraryOptions, launchCamera } from 'react-native-image-picker';
 import { Picker } from '@react-native-picker/picker';
+import axios from 'axios';
 export default class Addclient extends Component {
     constructor(props) {
         super(props);
         this.state = ({
-            DressType: 'Shirt'
+            Name:'',
+            Phone:'',
+            Address:'',
+            photo:null,
+            picdata:null
         })
     }
     openCamara = () => {
@@ -17,25 +22,61 @@ export default class Addclient extends Component {
             },
             includeBase64: true,
         };
-
         launchImageLibrary(options, response => {
-            console.log('Response = ', response);
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error:', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = { uri: 'data:image/jpeg;base64,' + response.base64 };
+            // console.log(response.assets[0].base64)
+            if (response.assets) {
+                imageAssetsArray = response.assets[0].uri
                 this.setState({
-                    ProfilePic: source
-                });
+                    photo: imageAssetsArray,
+                    picdata: response.assets[0].base64
+                })
             }
         });
     };
+    renderFileUri() {
+        if (this.state.photo) {
+          return <Image
+            source={{ uri: this.state.photo }}
+            style={styles.UserProfile}
+          />
+        } else {
+          return <Image
+            source={require('../../assets/usersample.png')}
+            style={styles.UserProfile}
+          />
+        }
+      };
+    addclient=()=>{
+        if (this.state.Name && this.state.Phone && this.state.Address){
+            axios.post('/login/',
+                { "photodata": this.state.picdata,
+                 "clientname": this.state.Name,
+                "clinetphone":this.state.Phone,
+            "clientaddress":this.state.Address },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }).then((response)=>{
+                    Alert.alert(
+                        response, "Add another client .",
+                      [
+                       {text: ' Add client ', onPress:  () => this.props.navogation.replace('Addclient') },
+                       {text: 'Cancel',onPress: ()=> this.props.navogation.replace('Home'), 
+                        style: 'cancel'},
+                       ],
+                     { cancelable: true })
+                }).catch((error)=>{
+                    console.log(error)
+                })
+        }
+        ;
+        
+    }
     render() {
+        const { photo } = this.state;
         return (
+            
             <View style={styles.Main}>
                 <View style={styles.Header}>
                     <View style={{flexDirection:'row',alignSelf:'center'}}>
@@ -52,8 +93,7 @@ export default class Addclient extends Component {
                 </View>
                 <ScrollView style={styles.Body}>
                     <View style={styles.profile}>
-                        <Image source={require('../../assets/usersample.png')}
-                            style={styles.UserProfile} />
+                        {this.renderFileUri()}
                         <TouchableOpacity
                             onPress={() => this.openCamara()}>
                             <Text style={[styles.buttonText]}>
@@ -66,15 +106,35 @@ export default class Addclient extends Component {
                         <Text style={[styles.FormatText, { marginTop: '5%' }]}>Name</Text>
                         <TextInput placeholder='Client Name'
                             placeholderTextColor={'rgb(37,36,39)'}
-                            style={styles.Input} />
+                            style={styles.Input}
+                            onChangeText={(Name) => { this.setState({ Name }) }}
+                            keyboardType='ascii-capable'
+                            keyboardAppearance='default'
+                            returnKeyType='next'
+                            autoCapitalize='none' />
 
 
                         <Text style={[styles.FormatText, { marginTop: '5%' }]}>Phone</Text>
                         <TextInput placeholder='Client Phone'
                             placeholderTextColor={'rgb(37,36,39)'}
-                            style={styles.Input} />
+                            style={styles.Input}
+                            onChangeText={(Phone) => { this.setState({ Phone }) }}
+                            keyboardType='ascii-capable'
+                            keyboardAppearance='default'
+                            returnKeyType='next'
+                            autoCapitalize='none'  />
 
-                        <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 10 }}>
+                        <Text style={[styles.FormatText, { marginTop: '5%' }]}>Address</Text>
+                        <TextInput placeholder='Client Address'
+                            placeholderTextColor={'rgb(37,36,39)'}
+                            style={styles.Input} 
+                            onChangeText={(Address) => { this.setState({ Address }) }}
+                            keyboardType='ascii-capable'
+                            keyboardAppearance='default'
+                            returnKeyType='next'
+                            autoCapitalize='none' />
+
+                        {/* <View style={{ flexDirection: 'row', justifyContent: 'center', padding: 10 }}>
                             <Image
                                 style={styles.Img}
                                 source={require('../../assets/left.png')} />
@@ -84,7 +144,7 @@ export default class Addclient extends Component {
                             <Image
                                 style={styles.Img}
                                 source={require('../../assets/right.png')} />
-                        </View>
+                        </View> */}
                         {/* <View style={styles.Entry}>
                             <Text style={styles.EntryText}>
                                 Select Dress type
@@ -100,7 +160,9 @@ export default class Addclient extends Component {
                             </Picker>
                         </View> */}
                         <TouchableOpacity style={styles.Button}
-                            onPress={() => this.props.navigation.navigate(this.state.DressType)}>
+                            onPress={
+                                () => this.addclient()
+                              }>
                             <Text style={styles.Text}>
                                 Add Detail
                             </Text>

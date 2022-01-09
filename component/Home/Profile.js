@@ -17,6 +17,10 @@ export default class Profile extends Component {
             logo: null,
             picdata: null,
             logodata: null,
+            dummypic:require('../../assets/usersample.png'),
+            dummylogo:require('../../assets/logo.jpeg'),
+            picstyle:styles.UserProfile,
+            logostyle:[styles.UserProfile, { borderRadius: 20 }]
         })
     }
     ProfileChanger = () => {
@@ -59,6 +63,19 @@ export default class Profile extends Component {
             }
         });
     };
+    renderFileUri(profilephoto,dummy,design) {
+        if (profilephoto) {
+          return <Image
+            source={{ uri: profilephoto }}
+            style={design}
+          />
+        } else {
+          return <Image
+            source={dummy}
+            style={design}
+          />
+        }
+      };
     uploadData = () => {
         axios.post('', {
 
@@ -115,8 +132,7 @@ export default class Profile extends Component {
 
 
                     <View style={styles.profile}>
-                        <Image source={{ uri: photo }}
-                            style={styles.UserProfile} />
+                        {this.renderFileUri(this.state.photo,this.state.dummypic,this.state.picstyle)}
                         <TouchableOpacity
                             onPress={() => this.ProfileChanger()}>
                             <Text style={[styles.Headtext, { fontSize: 16, alignSelf: 'center', padding: 10 }]}>
@@ -125,8 +141,7 @@ export default class Profile extends Component {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.profile}>
-                        <Image source={{ uri: this.state.logo }}
-                            style={[styles.UserProfile, { borderRadius: 20 }]} />
+                    {this.renderFileUri(this.state.logo,this.state.dummylogo,this.state.logostyle)}
                         <TouchableOpacity
                             onPress={() => this.logoChanger()}>
                             <Text style={[styles.Headtext, { fontSize: 16, alignSelf: 'center', padding: 10 }]}>

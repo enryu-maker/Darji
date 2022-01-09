@@ -20,10 +20,11 @@ export default class Customer extends Component {
     render() {
         const list =[
             {Profile:'',Name:'Akif Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
+            {Profile:'',Name:'Nikita K',Number:'+91 7776053161',Address:'Ambad Link road'},
             {Profile:'',Name:'kaif Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
             {Profile:'',Name:'awais Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
             {Profile:'',Name:'sultan Khan',Number:'+91 9405649047',Address:'Ambad Link road'},
-            {Profile:'',Name:'Gaurav J',Number:'+91 9405649047',Address:'Ambad Link road'}
+            {Profile:'',Name:'Gaurav J',Number:'+91 9405649047',Address:'Ambad Link road'},
         ];
         return (
             <View style={styles.Main}>
