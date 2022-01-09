@@ -13,6 +13,7 @@ import Profile from '../Home/Profile';
 import Shirt from '../Measure/Shirt';
 import Pant from '../Measure/Pant';
 import Measurement from '../Measure/Measurement';
+import Newmeasure from '../Measure/Newmeasure';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 const Drawer = createDrawerNavigator();
 const drawerNav = () => {
@@ -45,6 +46,7 @@ export default class Authnav extends Component {
           <Stack.Screen name='Shirt' component={Shirt} />
           <Stack.Screen name='Pant' component={Pant} />
           <Stack.Screen name='Addclient' component={Addclient}/>
+          <Stack.Screen name='Newmeasure' component={Newmeasure}/>
         </Stack.Navigator>
       </NavigationContainer>
     )

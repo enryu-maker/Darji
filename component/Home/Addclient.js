@@ -1,7 +1,6 @@
 import React, { Component, useState } from 'react'
 import { Text, StyleSheet, View, ScrollView, Image, TouchableOpacity, TextInput, Alert } from 'react-native'
 import { launchImageLibrary, ImageLibraryOptions, launchCamera } from 'react-native-image-picker';
-import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 export default class Addclient extends Component {
     constructor(props) {
