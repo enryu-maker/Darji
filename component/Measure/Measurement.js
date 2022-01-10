@@ -57,7 +57,7 @@ export default class Measurement extends Component {
                         >
                             <Image source={require('../../assets/add-user.png')}
                             style={styles.img}/>
-                        <Text style={styles.btntext}>Create Measurement</Text>
+                        <Text style={styles.btntext}>New Measurement</Text>
                         </TouchableOpacity>
                         </View>
                         

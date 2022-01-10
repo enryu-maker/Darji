@@ -67,7 +67,7 @@ const App = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
         {
-          Route === true ? <Rootnav/> : <Authnav/>
+          Route === true ? <Rootnav/> : <Rootnav/>
         }
     </SafeAreaView>
   );
