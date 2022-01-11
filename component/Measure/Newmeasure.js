@@ -20,7 +20,6 @@ export default class Newmeasure extends Component {
         )
     }
 }
-
 const styles = StyleSheet.create({
     Main:{
         backgroundColor: 'rgb(37,36,39)',

@@ -35,29 +35,22 @@ const againRefresh=(refresh)=>{
   this.props.navigation.replace('Login')
 })
 }
-
 const App = () => {
   const [Route,setRoute]=useState(false)
   async function retrieveData(){
     try {
       const token = await AsyncStorage.getItem('token');
       const refresh = await AsyncStorage.getItem('refresh');
-      // console.log(token)
-      // console.log(refresh)
       if (token !== null && refresh !== null) {
         setRoute(true)
-        // console.log(Route)
       }
       else{
         setRoute(false)
-        // console.log(Route)
       }
     } catch (error) {
       setRoute(false)
-      // console.log(Route)
     }
   };
-  
   useEffect(() => {
     retrieveData();
     SplashScreen.hide();
