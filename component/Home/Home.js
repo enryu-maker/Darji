@@ -1,22 +1,18 @@
 import React, { Component } from 'react'
 import { Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import jwt_decode from "jwt-decode";
 export default class Home extends Component {
     constructor(props) {
         super(props);
-        //this.retrieveData
     }
     retrieveData = async () => {
-        // console.log('hi')
         try {
             const token = await AsyncStorage.getItem('token');
             const refresh = await AsyncStorage.getItem('refresh');
-            //   console.log(token);
-            //     console.log(refresh);
             if (token !== null && refresh !== null) {
-                console.log('hello')
-                console.log(token);
-                console.log(refresh);
+                var decodedHeader = jwt_decode(token);
+                console.log(decodedHeader);
             }
         } catch (error) {
             console.log('hello')
@@ -45,6 +41,12 @@ export default class Home extends Component {
                     <Text style={[styles.Headtext, { color: 'rgb(237, 234, 224)', margin: 15 }]}>
                         Name of Shop
                     </Text>
+                    <TouchableOpacity
+                    onPress={()=>this.retrieveData()}>
+                        <Text style={[styles.Headtext, { color: 'rgb(237, 234, 224)', margin: 15 }]}>
+                            Data
+                        </Text>
+                    </TouchableOpacity>
                 </View>
 
             </View>
