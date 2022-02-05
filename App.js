@@ -54,8 +54,6 @@ const App = () => {
   useEffect(() => {
     retrieveData();
     SplashScreen.hide();
-    
-    
   },[]);
   return (
     <SafeAreaView style={{flex: 1}}>
